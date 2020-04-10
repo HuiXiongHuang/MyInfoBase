@@ -1,0 +1,19 @@
+﻿<Application x:Class="MyInfoBase.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MyInfoBase"
+             StartupUri="MainWindow.xaml">
+	<Application.Resources>
+		<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--在这样引用编译能过，运行会异常,但如果仅引用本程序集的资源字典是可以的
+                <ResourceDictionary Source="../WpfCustomControlLibrary/CustomControl.xaml"/>-->
+                
+                <!--<ResourceDictionary Source="pack://application:,,,/Panuon.UI.Silver;component/Control.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/WpfCustomControlLibrary;component/CustomControl.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/WpfCustomControlLibrary;component/CustomWindow.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+	</Application.Resources>
+</Application>

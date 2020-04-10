@@ -1,0 +1,15 @@
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\DataAccessLayer.dll.config
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\EntityFramework.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\InterfaceLibrary.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\Model.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\InterfaceLibrary.pdb
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\Model.pdb
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\EntityFramework.xml
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

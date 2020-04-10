@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B5AA86A0-5CA4-482C-88C9-F6BB4C863FFB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MyInfoBase</RootNamespace>
+    <AssemblyName>MyInfoBase</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\app_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="Lierda.WPFHelper, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cbb49eab16984ff2, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lierda.WPFHelper.1.0.3\lib\net40\Lierda.WPFHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="ConfigWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FindNodes.xaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LabelWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ConfigWin.xaml.cs">
+      <DependentUpon>ConfigWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FindNodes.xaml.xaml.cs">
+      <DependentUpon>FindNodes.xaml.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LabelWindow.xaml.cs">
+      <DependentUpon>LabelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddBrother.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddChild.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddRoot.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\change_type.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cut_node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\delete.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\down_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Exit.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\find.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\main_window.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\move_down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\move_left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\move_right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\move_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\paste_node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Rename.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{4E68B1C7-2420-49B9-9B34-295A01B715D0}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InfoNode\InfoNode.csproj">
+      <Project>{53EBE073-F03A-4511-ACF2-A28CF23FBA65}</Project>
+      <Name>InfoNode</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceLibrary\InterfaceLibrary.csproj">
+      <Project>{631DCF44-5241-457A-A484-93115C32ED81}</Project>
+      <Name>InterfaceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LabelNode\LabelNode.csproj">
+      <Project>{AECEB6F6-2FAC-41C7-BA6A-C69EE9B35B91}</Project>
+      <Name>LabelNode</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{2D6730FD-75DA-473A-841B-C5D6AC173C24}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NodeFactoryLibrary\NodeFactoryLibrary.csproj">
+      <Project>{4C27CD8B-D041-4D1A-B470-2FEDE18DBB91}</Project>
+      <Name>NodeFactoryLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PublicLibrary\PublicLibrary.csproj">
+      <Project>{6A7D7307-FF8C-4C62-A41C-5AA7589697C2}</Project>
+      <Name>PublicLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemLibrary\SystemLibrary.csproj">
+      <Project>{D953BBC5-50AD-481B-9979-8C7B9653751C}</Project>
+      <Name>SystemLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TabView\WPFDBInfoTab.csproj">
+      <Project>{2b6cc15e-8fad-4294-944f-d3775402819a}</Project>
+      <Name>WPFDBInfoTab</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFCustomCommands\WPFCustomCommands.csproj">
+      <Project>{6acec94f-0d5b-4b2a-89de-74b4128ad9e3}</Project>
+      <Name>WPFCustomCommands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfCustomControlLibrary\WPFCustomControlLibrary.csproj">
+      <Project>{debd1eaa-46a9-4f36-a44b-6e8533dc9f19}</Project>
+      <Name>WPFCustomControlLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFMessageBoxView\WPFMessageBoxView.csproj">
+      <Project>{1b056a77-4bdc-4a12-bae8-f50b6009fcf5}</Project>
+      <Name>WPFMessageBoxView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFSuperRichTextBox\WPFSuperRichTextBox.csproj">
+      <Project>{6ac15925-a8b0-4fc6-bb9b-5b1971dc12ef}</Project>
+      <Name>WPFSuperRichTextBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFSuperTreeView\WPFSuperTreeView.csproj">
+      <Project>{E5FCC21E-6BFF-472C-8636-7240937C99CB}</Project>
+      <Name>WPFSuperTreeView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFToolBar\WPFToolBar.csproj">
+      <Project>{48ada52a-123d-4bc9-b57b-d320f2ec3745}</Project>
+      <Name>WPFToolBar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfUserControlLibrary\WPFUserControlLibrary.csproj">
+      <Project>{818f113a-9ba9-4738-b765-d8ed16b35403}</Project>
+      <Name>WPFUserControlLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\app_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

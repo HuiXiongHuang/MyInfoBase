@@ -1,0 +1,347 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   x:Class="WPFCustomControlLibrary.CustomWindow">
+
+    <!--资源字典新建不自带.xaml.cs文件，但是可以通过添加类时命名为此格式的同名文件作为该资源字典的分部类，以响应相关事件处理-->
+
+    <DropShadowEffect x:Key="DropShadow"
+                      Color="LightGray"
+                      ShadowDepth="2"
+                      BlurRadius="20"
+                      Opacity="0.5" />
+    
+    <!-- 菜单按钮组模板 -->
+    <Style x:Key="CustomWindowMenuBtn" TargetType="Button">
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Opacity" Value="0.2"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock FontSize="25" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="1.0"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+<!--#region 窗口模板1-->
+    <!--Background="#FFF0FFFE"-->
+    <!-- 通用窗口模板 -->
+    <ControlTemplate x:Key="CustomWindowTemplate" TargetType="Window">
+        
+        <Border Margin="0" Padding="0" CornerRadius="0" Background="#1BA1E2"  MouseLeftButtonDown="CustomWindow_MouseLeftButtonDown" >
+            <!--模糊效果
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="3" RenderingBias="Performance" ShadowDepth="0" Opacity="1"/>
+            </Border.Effect>-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Image  HorizontalAlignment="Left" Source="{TemplateBinding Icon}"  ></Image>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"
+                                   Text="{TemplateBinding Title}" Foreground="#FFFFFF" FontSize="15"></TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,1,10,0" VerticalAlignment="Top">
+                        <Button Height="20" Width="20" Content="-"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMinimized_Click" />
+                        <Button Height="20" Width="20" Content="□"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMaxNormal_Click" />
+                        <Button Height="20" Width="20" Content="×"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnClose_Click" />
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <AdornerDecorator>
+                        <ContentPresenter></ContentPresenter>
+                    </AdornerDecorator>
+                </Grid>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <!-- 通用窗口样式 -->
+    <Style x:Key="CustomWindowChrome" TargetType="Window">
+        <Setter Property="AllowsTransparency" Value="True"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="WindowStyle" Value="None"></Setter>
+        <Setter Property="ResizeMode" Value="NoResize"></Setter>
+        <Setter Property="Template" Value="{StaticResource CustomWindowTemplate}"></Setter>
+    </Style>
+<!--#endregion-->
+<!--#region 窗口模板2-->
+    <!--Background="#FFF0FFFE"-->
+    <!-- 通用窗口模板 -->
+    <ControlTemplate x:Key="CustomWindowTemplate2" TargetType="Window">
+        <!--背景色-->
+        <Border x:Name="back" Opacity="1" CornerRadius="5">
+            <Border.BitmapEffect>
+                <!--边框为0的外发光效果-->
+                <OuterGlowBitmapEffect Opacity="0.7" GlowSize="0" GlowColor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" />
+            </Border.BitmapEffect>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" Offset="0"/>
+                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" Offset="0.4"/>
+                            <GradientStop Color="#FFF" Offset="1"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Border.Background>
+            <!--前景色及边框-->
+            <Border x:Name="fore"  BorderThickness="1" CornerRadius="5" BorderBrush="#5555" MouseLeftButtonDown="CustomWindow_MouseLeftButtonDown" >
+                <!--fore 实现按钮的边框和高亮反光效果，半透明的黑色1像素边框，使边框的色彩可以和背景色混合起来-->
+                <!--背景同样采用的渐变笔刷，起始值和终止值的位置几乎贴在一起，从而形成比较鲜明的反光度对比。-->
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientBrush.GradientStops>
+                            <GradientStopCollection>
+                                <GradientStop Color="#6FFF" Offset="0.5"/>
+                                <GradientStop Color="#1111" Offset="0.51"/>
+                            </GradientStopCollection>
+                        </GradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <!--按钮内容-->
+                <!--<ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding  Content}">
+                    -->
+                <!--一个不太明显的阴影滤镜以增强显示效果-->
+                <!--
+                    <ContentPresenter.BitmapEffect>
+                        <DropShadowBitmapEffect Color="#000" Direction="-90" ShadowDepth="2" Softness="0.1" Opacity="0.3" />
+                    </ContentPresenter.BitmapEffect>
+                </ContentPresenter>-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"
+                                   Text="{TemplateBinding Title}" Foreground="#FFFFFF" FontSize="15"></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,1,10,0" VerticalAlignment="Top">
+                            <Button Height="20" Width="20" Content="-"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMinimized_Click" />
+                            <Button Height="20" Width="20" Content="□"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMaxNormal_Click" />
+                            <Button Height="20" Width="20" Content="×"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnClose_Click" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <AdornerDecorator>
+                            <ContentPresenter></ContentPresenter>
+                        </AdornerDecorator>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Border>
+      
+       
+    </ControlTemplate>
+
+    <!-- 通用窗口样式 -->
+    <Style x:Key="CustomWindowChrome2" TargetType="Window">
+        <Setter Property="AllowsTransparency" Value="True"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="WindowStyle" Value="None"></Setter>
+        <Setter Property="ResizeMode" Value="NoResize"></Setter>
+        <Setter Property="Template" Value="{StaticResource CustomWindowTemplate2}"></Setter>
+    </Style>
+    <!--#endregion-->
+<!--#region 窗口模板3-->
+    <!-- 通用窗口模板 -->
+    <ControlTemplate x:Key="CustomWindowTemplate3" TargetType="Window">
+        <!--背景色-->
+        <Border x:Name="back0" Opacity="1" CornerRadius="0" >
+            <Border.BitmapEffect>
+                <!--边框为0的外发光效果-->
+                <OuterGlowBitmapEffect Opacity="0.7" GlowSize="0" GlowColor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" />
+            </Border.BitmapEffect>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" Offset="0"/>
+                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" Offset="0.4"/>
+                            <GradientStop Color="#FFF" Offset="1"/>
+                        </GradientStopCollection>
+                    </GradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Border.Background>
+            <!--<Border.Background>
+                <LinearGradientBrush StartPoint="0.126,-0.197"
+                           EndPoint="0.874,1.197">
+                    <GradientStop Offset="0"
+                      Color="#FF615E5A" />
+                    <GradientStop Offset="1"
+                      Color="#FF535353" />
+                    <GradientStop Offset="0.284"
+                      Color="#FFE0E0E0" />
+                    <GradientStop Offset="0.365"
+                      Color="#FFFFFFFF" />
+                </LinearGradientBrush>
+            </Border.Background>-->
+
+            <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                    <!--背景色-->
+                    <Border x:Name="back" Opacity="0.8" >
+                        <Border.BitmapEffect>
+                            <!--边框为0的外发光效果-->
+                            <OuterGlowBitmapEffect Opacity="0.7" GlowSize="0" GlowColor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" />
+                        </Border.BitmapEffect>
+                        <!--<Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" Offset="0"/>
+                                        <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Window.Background).(SolidColorBrush.Color)}" Offset="0.4"/>
+                                        <GradientStop Color="#FFF" Offset="1"/>
+                                    </GradientStopCollection>
+                                </GradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Border.Background>-->
+                        <!--前景色及边框-->
+                    <Border x:Name="fore"   MouseLeftButtonDown="CustomWindow_MouseLeftButtonDown" >
+                        <!--fore 实现按钮的边框和高亮反光效果，半透明的黑色1像素边框，使边框的色彩可以和背景色混合起来-->
+                        <!--背景同样采用的渐变笔刷，起始值和终止值的位置几乎贴在一起，从而形成比较鲜明的反光度对比。-->
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Color="#6FFF" Offset="0.5"/>
+                                        <GradientStop Color="#1111" Offset="0.51"/>
+                                    </GradientStopCollection>
+                                </GradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <!--一个不太明显的阴影滤镜以增强显示效果--><!--
+                        <Grid.BitmapEffect>
+                            <DropShadowBitmapEffect Color="#000" Direction="-90" ShadowDepth="2" Softness="0.1" Opacity="0.3" />
+                        </Grid.BitmapEffect>-->
+                        <Grid>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"
+                                   Text="{TemplateBinding Title}" Foreground="#FFFFFF" FontSize="15"></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,1,10,0" VerticalAlignment="Top">
+                            <Button Height="20" Width="20" Content="-"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMinimized_Click" />
+                            <Button Height="20" Width="20" Content="□"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMaxNormal_Click" />
+                            <Button Height="20" Width="20" Content="×"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnClose_Click" />
+                        </StackPanel>
+                        </Grid>
+                    </Border>
+                        </Border>
+                </Grid>
+                    <Grid Grid.Row="1">
+                        <AdornerDecorator>
+                            <ContentPresenter>
+                               
+                            </ContentPresenter>
+                        </AdornerDecorator>
+                    </Grid>
+                </Grid>
+            
+        </Border>
+        <!--触发器--><!--
+        <ControlTemplate.Triggers>
+            --><!--鼠标移入移出--><!--
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="back" Storyboard.TargetProperty="(Border.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)" />
+                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                            <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation To="6" Duration="0:0:0.2" Storyboard.TargetName="back" Storyboard.TargetProperty="(Border.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)" />
+                            <ColorAnimation To="#AFFF" BeginTime="0:0:0.2" Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)" />
+                            <ColorAnimation To="#3FFF" BeginTime="0:0:0.2" Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+         
+        </ControlTemplate.Triggers>-->
+    </ControlTemplate>
+
+    <!-- 通用窗口样式 -->
+    <Style x:Key="CustomWindowChrome3" TargetType="Window">
+        <Setter Property="AllowsTransparency" Value="True"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="WindowStyle" Value="None"></Setter>
+        <Setter Property="ResizeMode" Value="NoResize"></Setter>
+        <Setter Property="Template" Value="{StaticResource CustomWindowTemplate3}"></Setter>
+      
+        <!--<Setter Property="SnapsToDevicePixels" Value="True"></Setter>-->
+        <Setter Property="RenderOptions.EdgeMode" Value="Unspecified"></Setter>
+    </Style> 
+    <!--#endregion-->
+    <!--#region 窗口模板1.1-->
+    <!--Background="#FFF0FFFE"-->
+    <!-- 通用窗口模板 -->
+    <ControlTemplate x:Key="CustomWindowTemplate1.1" TargetType="Window">
+
+        <Border Margin="0" Padding="0" CornerRadius="0" Background="#1BA1E2"  MouseLeftButtonDown="CustomWindow_MouseLeftButtonDown" >
+            <!--模糊效果
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="3" RenderingBias="Performance" ShadowDepth="0" Opacity="1"/>
+            </Border.Effect>-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"
+                                   Text="{TemplateBinding Title}" Foreground="#FFFFFF" FontSize="15"></TextBlock>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,1,10,0" VerticalAlignment="Top">
+                        <Button Height="20" Width="20" Content="-"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMinimized_Click" />
+                        <Button Height="20" Width="20" Content="□"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnMaxNormal_Click" />
+                        <Button Height="20" Width="20" Content="×"
+                                Style="{StaticResource ResourceKey=CustomWindowMenuBtn}" Click="CustomWindowBtnClose_Click" />
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <AdornerDecorator>
+                        <ContentPresenter></ContentPresenter>
+                    </AdornerDecorator>
+                </Grid>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <!-- 通用窗口样式 -->
+    <Style x:Key="CustomWindowChrome1.1" TargetType="Window">
+        <Setter Property="AllowsTransparency" Value="True"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="WindowStyle" Value="None"></Setter>
+        <Setter Property="ResizeMode" Value="NoResize"></Setter>
+        <Setter Property="Template" Value="{StaticResource CustomWindowTemplate1.1}"></Setter>
+    </Style>
+    <!--#endregion-->
+
+</ResourceDictionary>

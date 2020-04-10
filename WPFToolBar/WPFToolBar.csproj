@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{48ADA52A-123D-4BC9-B57B-D320F2EC3745}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>WPFToolBar</RootNamespace>
+    <AssemblyName>WPFToolBar</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Panuon.UI.Silver, Version=1.0.9.8, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panuon.UI.Silver.1.0.9.8\lib\net40\Panuon.UI.Silver.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DocumentToolBar\DocumentToolBar.xaml.cs">
+      <DependentUpon>DocumentToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentToolBar\DocumentToolBarCommands.cs" />
+    <Compile Include="NodeToolBar\NodeToolBar.xaml.cs">
+      <DependentUpon>NodeToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NodeToolBar\NodeToolBarHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\FindWord.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\NewDocument.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\Redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="DocumentToolBar\DocumentToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NodeToolBar\NodeToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InfoNode\InfoNode.csproj">
+      <Project>{53ebe073-f03a-4511-acf2-a28cf23fba65}</Project>
+      <Name>InfoNode</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceLibrary\InterfaceLibrary.csproj">
+      <Project>{631DCF44-5241-457A-A484-93115C32ED81}</Project>
+      <Name>InterfaceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFCustomCommands\WPFCustomCommands.csproj">
+      <Project>{6acec94f-0d5b-4b2a-89de-74b4128ad9e3}</Project>
+      <Name>WPFCustomCommands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfCustomControlLibrary\WPFCustomControlLibrary.csproj">
+      <Project>{debd1eaa-46a9-4f36-a44b-6e8533dc9f19}</Project>
+      <Name>WPFCustomControlLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFSuperRichTextBox\WPFSuperRichTextBox.csproj">
+      <Project>{6ac15925-a8b0-4fc6-bb9b-5b1971dc12ef}</Project>
+      <Name>WPFSuperRichTextBox</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\AddChild.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\change_type.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\cut_node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\delete.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\down_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\Exit.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\move_down.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\move_left.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\move_right.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\move_up.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\paste_node.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\Rename.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\AddRoot.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\open2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\Print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\Copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\Cut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\AddAttachment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\ExportToFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\insertFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\InsertImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\Paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\MoveToBegin.png" />
+    <Resource Include="DocumentToolBar\Images\MoveToEnd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DocumentToolBar\Images\PrintPreview.png" />
+    <Resource Include="DocumentToolBar\Images\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\AddBrother.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\biaoqian.png" />
+    <Resource Include="NodeToolBar\Images\shuqian.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NodeToolBar\Images\find.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

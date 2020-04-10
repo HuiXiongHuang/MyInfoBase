@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="WPFDBInfoTab.DBInfoTab"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"            
+             xmlns:local="clr-namespace:WPFDBInfoTab"   
+             xmlns:SuperTree="clr-namespace:WPFSuperTreeView;assembly=WPFSuperTreeView"
+             xmlns:WPFCustomCommands="clr-namespace:WPFCustomCommands;assembly=WPFCustomCommands"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"  >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="tab"    Style="{StaticResource TabControlStyle1}"   TabStripPlacement="Left"  SelectionChanged="tab_SelectionChanged" Background="White" >
+            <TabItem x:Name="OutLineTabItem" Header="大纲"  Style="{StaticResource TabItemStyle1}" Margin="0"   >
+                <ContentControl x:Name="outlinetreeContainer"></ContentControl>
+            </TabItem>
+            <TabItem x:Name="LabelTabItem" Header="标签" Style="{StaticResource TabItemStyle1}" >
+                <ContentControl x:Name="labeltreeContainer"></ContentControl>
+            </TabItem>
+        </TabControl>
+
+        <!--左右面板分隔条 -->
+        <GridSplitter Focusable="true" Background="GhostWhite" Width="8" Grid.Column="1" Height="Auto" ShowsPreview="True" VerticalAlignment="Stretch" HorizontalAlignment="Left"/>
+        <!--此控件用于承载节点面板 -->
+        <ContentControl Focusable="true"    x:Name="NodeUIContainer" Margin="0,0"  Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>
+    </Grid>
+</UserControl>

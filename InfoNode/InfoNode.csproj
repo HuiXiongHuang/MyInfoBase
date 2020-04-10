@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53EBE073-F03A-4511-ACF2-A28CF23FBA65}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InfoNode</RootNamespace>
+    <AssemblyName>InfoNode</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Windows.Shell.3.0.1.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventManagement\AddLabelEvent\AddLabelEvent.cs" />
+    <Compile Include="EventManagement\AddLabelEvent\AddLabelEventHandler.cs" />
+    <Compile Include="EventManagement\AddLabelEvent\AddLabelEventManager.cs" />
+    <Compile Include="EventManagement\FileCountChangedEvent\FileCountChangedEvent.cs" />
+    <Compile Include="EventManagement\FileCountChangedEvent\FileCountChangedEventHandler.cs" />
+    <Compile Include="EventManagement\FileCountChangedEvent\FileCountChangedEventManager.cs" />
+    <Compile Include="EventManagement\RemoveLabelEvent\RemoveLabelEvent.cs" />
+    <Compile Include="EventManagement\RemoveLabelEvent\RemoveLabelEventHandler.cs" />
+    <Compile Include="EventManagement\RemoveLabelEvent\RemoveLabelEventManager.cs" />
+    <Compile Include="FileSizeConverter.cs" />
+    <Compile Include="InfoNodeAccess.cs" />
+    <Compile Include="InfoNodeControl.xaml.cs">
+      <DependentUpon>InfoNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InfoNodeDataInfo.cs" />
+    <Compile Include="InfoNodeHelper.cs" />
+    <Compile Include="InfoNodeResources.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{4e68b1c7-2420-49b9-9b34-295a01b715d0}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceLibrary\InterfaceLibrary.csproj">
+      <Project>{631dcf44-5241-457a-a484-93115c32ed81}</Project>
+      <Name>InterfaceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{2D6730FD-75DA-473A-841B-C5D6AC173C24}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PublicLibrary\PublicLibrary.csproj">
+      <Project>{6a7d7307-ff8c-4c62-a41c-5aa7589697c2}</Project>
+      <Name>PublicLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemLibrary\SystemLibrary.csproj">
+      <Project>{d953bbc5-50ad-481b-9979-8c7b9653751c}</Project>
+      <Name>SystemLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFMessageBoxView\WPFMessageBoxView.csproj">
+      <Project>{1b056a77-4bdc-4a12-bae8-f50b6009fcf5}</Project>
+      <Name>WPFMessageBoxView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFSuperRichTextBox\WPFSuperRichTextBox.csproj">
+      <Project>{6ac15925-a8b0-4fc6-bb9b-5b1971dc12ef}</Project>
+      <Name>WPFSuperRichTextBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfUserControlLibrary\WPFUserControlLibrary.csproj">
+      <Project>{818F113A-9BA9-4738-B765-D8ED16B35403}</Project>
+      <Name>WPFUserControlLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="InfoNodeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FileIcon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\FileIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InfoNode.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

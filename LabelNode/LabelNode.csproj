@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AECEB6F6-2FAC-41C7-BA6A-C69EE9B35B91}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>LabelNode</RootNamespace>
+    <AssemblyName>LabelNode</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="LabelNodeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="EventManagement\LoadInfoNodeControlEvent\LoadInfoNodeControlEvent.cs" />
+    <Compile Include="EventManagement\LoadInfoNodeControlEvent\LoadInfoNodeControlEventHandler.cs" />
+    <Compile Include="EventManagement\LoadInfoNodeControlEvent\LoadInfoNodeControlEventManager.cs" />
+    <Compile Include="LabelNodeHelper.cs" />
+    <Compile Include="LabelNodeAccess.cs" />
+    <Compile Include="LabelNodeControl.xaml.cs">
+      <DependentUpon>LabelNodeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LabelNodeResources.cs" />
+    <Compile Include="LabelNodeDataInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{4E68B1C7-2420-49B9-9B34-295A01B715D0}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InfoNode\InfoNode.csproj">
+      <Project>{53EBE073-F03A-4511-ACF2-A28CF23FBA65}</Project>
+      <Name>InfoNode</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceLibrary\InterfaceLibrary.csproj">
+      <Project>{631DCF44-5241-457A-A484-93115C32ED81}</Project>
+      <Name>InterfaceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{2D6730FD-75DA-473A-841B-C5D6AC173C24}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PublicLibrary\PublicLibrary.csproj">
+      <Project>{6A7D7307-FF8C-4C62-A41C-5AA7589697C2}</Project>
+      <Name>PublicLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemLibrary\SystemLibrary.csproj">
+      <Project>{D953BBC5-50AD-481B-9979-8C7B9653751C}</Project>
+      <Name>SystemLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFSuperRichTextBox\WPFSuperRichTextBox.csproj">
+      <Project>{6ac15925-a8b0-4fc6-bb9b-5b1971dc12ef}</Project>
+      <Name>WPFSuperRichTextBox</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfUserControlLibrary\WPFUserControlLibrary.csproj">
+      <Project>{818f113a-9ba9-4738-b765-d8ed16b35403}</Project>
+      <Name>WPFUserControlLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SelectedInfoNode.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LabelIcon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LabelIcon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

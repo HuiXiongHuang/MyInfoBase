@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="MyDBEntities">
+    <EntitySetMapping Name="BookMarks">
+      <EntityTypeMapping TypeName="Model.BookMark">
+        <MappingFragment StoreEntitySet="BookMark">
+          <ScalarProperty Name="InfoNodeID" ColumnName="InfoNodeID" />
+          <ScalarProperty Name="BookMarkContent" ColumnName="BookMarkContent" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DiskFiles">
+      <EntityTypeMapping TypeName="Model.DiskFile">
+        <MappingFragment StoreEntitySet="DiskFile">
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="FileType" ColumnName="FileType" />
+          <ScalarProperty Name="AfterCompressionFileSize" ColumnName="AfterCompressionFileSize" />
+          <ScalarProperty Name="FileNote" ColumnName="FileNote" />
+          <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+          <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+          <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InfoNodeDBs">
+      <EntityTypeMapping TypeName="Model.InfoNodeDB">
+        <MappingFragment StoreEntitySet="InfoNodeDB">
+          <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+          <ScalarProperty Name="RTFText" ColumnName="RTFText" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LabelNodeDBs">
+      <EntityTypeMapping TypeName="Model.LabelNodeDB">
+        <MappingFragment StoreEntitySet="LabelNodeDB">
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NodeTrees">
+      <EntityTypeMapping TypeName="Model.NodeTree">
+        <MappingFragment StoreEntitySet="NodeTree">
+          <ScalarProperty Name="TreeType" ColumnName="TreeType" />
+          <ScalarProperty Name="WholeTree" ColumnName="WholeTree" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FileAndInfoNode" TypeName="Model.FileAndInfoNode" StoreEntitySet="FileAndInfoNode">
+      <EndProperty Name="InfoNodeDB">
+        <ScalarProperty Name="ID" ColumnName="InfoNodeID" />
+      </EndProperty>
+      <EndProperty Name="DiskFile">
+        <ScalarProperty Name="ID" ColumnName="FileID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InfoNodeAndLabel" TypeName="Model.InfoNodeAndLabel" StoreEntitySet="InfoNodeAndLabel">
+      <EndProperty Name="LabelNodeDB">
+        <ScalarProperty Name="ID" ColumnName="LabelNodeID" />
+      </EndProperty>
+      <EndProperty Name="InfoNodeDB">
+        <ScalarProperty Name="ID" ColumnName="InfoNodeID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

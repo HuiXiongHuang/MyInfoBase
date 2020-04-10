@@ -1,0 +1,6 @@
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\PublicLibrary\bin\Debug\PublicLibrary.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\PublicLibrary\bin\Debug\PublicLibrary.pdb
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.csprojAssemblyReference.cache
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.csproj.CoreCompileInputs.cache
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.pdb

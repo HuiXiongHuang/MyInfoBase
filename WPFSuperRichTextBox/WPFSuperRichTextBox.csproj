@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6AC15925-A8B0-4FC6-BB9B-5B1971DC12EF}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>WPFSuperRichTextBox</RootNamespace>
+    <AssemblyName>WPFSuperRichTextBox</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EditorToolBar\ColorGridBox.cs.cs" />
+    <Compile Include="EditorToolBar\EditorToolBar.xaml.cs">
+      <DependentUpon>EditorToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditorToolBar\EditorToolBarCommands.cs" />
+    <Compile Include="FindAndReplace\FindAndReplaceManager.cs" />
+    <Compile Include="FindAndReplace\winFindAndReplace.xaml.cs">
+      <DependentUpon>winFindAndReplace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MySuperEditorCommands.cs" />
+    <Compile Include="MySuperEditorHelper.cs" />
+    <Compile Include="Print\PrintingPaginator.cs" />
+    <Compile Include="Print\PrintManager.cs" />
+    <Compile Include="Print\PrintPreviewDialog.xaml.cs">
+      <DependentUpon>PrintPreviewDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RichTextBoxDocumentManager.cs" />
+    <Compile Include="SuperRichTextBoxResourses.cs" />
+    <Compile Include="SuperWPFRichTextBox.xaml.cs">
+      <DependentUpon>SuperWPFRichTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLHelper.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="EditorToolBar\EditorToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FindAndReplace\winFindAndReplace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Print\PrintPreviewDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuperWPFRichTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InterfaceLibrary\InterfaceLibrary.csproj">
+      <Project>{631DCF44-5241-457A-A484-93115C32ED81}</Project>
+      <Name>InterfaceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemLibrary\SystemLibrary.csproj">
+      <Project>{d953bbc5-50ad-481b-9979-8c7b9653751c}</Project>
+      <Name>SystemLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\alignLeft.png" />
+    <Resource Include="Image\alignLeftAndRight.png" />
+    <Resource Include="Image\alignMiddle.png" />
+    <Resource Include="Image\alignRight.png" />
+    <Resource Include="Image\BackgroundColor.png" />
+    <Resource Include="Image\Bold.png" />
+    <Resource Include="Image\bullet_list.png" />
+    <Resource Include="Image\Copy.png" />
+    <Resource Include="Image\Cut.png" />
+    <Resource Include="Image\DecreaseFontSize.png" />
+    <Resource Include="Image\DecreaseIndent.png" />
+    <Resource Include="Image\Delete.png" />
+    <Resource Include="Image\down_arrow.png" />
+    <Resource Include="Image\ExportToFile.png" />
+    <Resource Include="Image\FindWord.png" />
+    <Resource Include="Image\fontColor.png" />
+    <Resource Include="Image\IncreaseFontSize.png" />
+    <Resource Include="Image\IncreaseIndent.png" />
+    <Resource Include="Image\insertFile.png" />
+    <Resource Include="Image\InsertImage.png" />
+    <Resource Include="Image\Italic.png" />
+    <Resource Include="Image\MoveToBegin.png" />
+    <Resource Include="Image\MoveToEnd.png" />
+    <Resource Include="Image\NewDocument.png" />
+    <Resource Include="Image\number_list.png" />
+    <Resource Include="Image\open.png" />
+    <Resource Include="Image\Paste.png" />
+    <Resource Include="Image\Print.png" />
+    <Resource Include="Image\PrintPreview.png" />
+    <Resource Include="Image\Redo.png" />
+    <Resource Include="Image\save.png" />
+    <Resource Include="Image\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\alignLeftAndRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\alignMiddle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\BackgroundColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\Bold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\bullet_list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\DecreaseFontSize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\DecreaseIndent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\down_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\fontColor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\IncreaseFontSize.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\IncreaseIndent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\Italic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\number_list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\alignRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\Subscript.png" />
+    <Resource Include="EditorToolBar\Images\Superscript.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\alignLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="EditorToolBar\Images\Underline.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

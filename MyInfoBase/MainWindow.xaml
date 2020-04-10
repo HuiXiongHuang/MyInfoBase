@@ -1,0 +1,120 @@
+﻿<Window 
+        x:Class="MyInfoBase.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:customCtrl="clr-namespace:WPFCustomControlLibrary;assembly=WPFCustomControlLibrary"
+        xmlns:DBInfoTab="clr-namespace:WPFDBInfoTab;assembly=WPFDBInfoTab"
+        xmlns:DocumentToolBar="clr-namespace:WPFToolBar.DocumentToolBar;assembly=WPFToolBar"
+        xmlns:EditorToolBar="clr-namespace:WPFSuperRichTextBox;assembly=WPFSuperRichTextBox"
+        xmlns:NodeToolBar="clr-namespace:WPFToolBar.NodeToolBar;assembly=WPFToolBar"
+        xmlns:infoTab="clr-namespace:WPFUserControlLibrary.InfoTab;assembly=WPFUserControlLibrary"
+        xmlns:local="clr-namespace:MyInfoBase"
+        xmlns:WPFCustomCommands="clr-namespace:WPFCustomCommands;assembly=WPFCustomCommands"
+        mc:Ignorable="d"         
+        Closing="Window_Closing"
+        Title="我的信息基地" Height="720" Width="1036" Background="#3E3E3E"    Style="{StaticResource ResourceKey=CustomWindowChrome}"  Icon="images/app_icon.ico"  >
+
+
+    <!-- 停靠容器控件，专门负责自适应窗体布局 -->
+    <Window.CommandBindings>
+        <!--#region 树窗口节点工具命令-->
+        <!-- 添加子节点命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.AddChild" Executed="AddChild"/>
+        <!-- 添加兄弟节点命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.AddSibling" Executed="AddSibling"/>
+        <!-- 添加根节点命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.AddRoot" Executed="AddRoot"/>
+        <!-- 删除节点命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.DeleteNode" Executed="DeleteNode"/>
+        <!-- 节点移动命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.MoveLeft" Executed="MoveLeft"/>
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.MoveRight" Executed="MoveRight"/>
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.MoveUp" Executed="MoveUp"/>
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.MoveDown" Executed="MoveDown"/>
+        <!-- 节点改名命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.RenameNode" Executed="RenameNode"/>
+        <!-- 节点的剪切与粘贴命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.CutNode" Executed="CutNode"/>
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.PasteNode" Executed="PasteNode"/>
+        <!-- 复制节点文本命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.CopyNodeText" Executed="CopyNodeTextExecuted"/>
+        <!-- 展开全部子树命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.ExpandAllNode" Executed="ExpandAllNode"/>
+        <!-- 显示查找窗体命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.ShowFindNodesWindow" Executed="ShowFindNodesWindow"/>
+        <!--显示系统配置命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.ShowConfigWin" Executed="ShowConfigWin"/>
+        <!-- 退出命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.ExitApplication" Executed="ExitApplication"/>
+        <!-- 切换数据库命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.ChangeDB" Executed="ChangeDB"/>
+        <!--复制数据库命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.CopyDB" Executed="CopyDB"/>
+        <!-- 节点访问历史记录命令 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.GoBack" Executed="GoBack" />
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.GoForward" Executed="GoForward"/>
+        <!-- 设置节点为粗体 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.ToggleNodeTextBold" Executed="ToggleNodeTextBold" />
+        <!-- 添加标签 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.AddLabelToInfoNode" Executed="AddLabelToInfoNode" />
+        <!-- 添加书签 -->
+        <CommandBinding Command="WPFCustomCommands:WPFCustomCommands.AddBookMark" Executed="AddBookMark" />
+        <!--#endregion-->
+    </Window.CommandBindings>
+    <DockPanel >
+        <StackPanel DockPanel.Dock="Top" Orientation="Vertical"   >
+            <!--<Border Style="{StaticResource CustomBtnBorder2}">-->
+                <DockPanel DockPanel.Dock="Top" Background="Transparent" >
+                    <!--<DockPanel.OpacityMask>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1.5,0">
+                            <GradientStop Offset="0" Color="AliceBlue"/>
+                            <GradientStop Offset="1" Color="Transparent"/>
+                        </LinearGradientBrush>
+                    </DockPanel.OpacityMask>-->
+                    <Button Background="Black" Width="60" Height="60"  Style="{StaticResource btn1}" >
+                        <!--<Button.OpacityMask>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0.9,0.8">
+                                <GradientStop Offset="0" Color="#FFF0FFFE"/>
+                                <GradientStop Offset="1" Color="Transparent"/>
+                            </LinearGradientBrush>
+                        </Button.OpacityMask>-->
+                        <ContentControl>
+                            <!-- 菜单栏，建立菜单-->
+                        <Menu DockPanel.Dock="Left" Background="Transparent" Width="60" Height="60" Margin="0"  >
+                            <MenuItem Header="文件" Background="Transparent" Width="60" Height="60" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="STLiti" FontSize="22" FontWeight="Bold"  Style="{StaticResource menuItem2}" >
+                                    <MenuItem.Items  >
+                                    <MenuItem Header="系统设置..."   Command="WPFCustomCommands:WPFCustomCommands.ShowConfigWin"  Style="{StaticResource menuItem2}"  />
+                                    <MenuItem Header="打开资料库"  Command="WPFCustomCommands:WPFCustomCommands.ChangeDB"   Style="{StaticResource menuItem2}"/>
+                                    <MenuItem Header="创建新资料库"  Command="WPFCustomCommands:WPFCustomCommands.CopyDB"   Style="{StaticResource menuItem2}" />
+                                    <MenuItem Header="退出"  Command="WPFCustomCommands:WPFCustomCommands.ExitApplication"   Style="{StaticResource menuItem2}"/>
+                                    </MenuItem.Items>
+                                </MenuItem>
+                            </Menu>
+                        </ContentControl>
+                    </Button>
+                    <!-- 节点工具栏-->
+                    <NodeToolBar:NodeToolBar HorizontalAlignment="Left" />
+                    <DockPanel   DockPanel.Dock="Right" HorizontalAlignment="Left"   >
+                        <!-- 文件工具栏-->
+                        <DocumentToolBar:DocumentToolBar DockPanel.Dock="Top"  x:Name="documentTool" HorizontalAlignment="Left"></DocumentToolBar:DocumentToolBar>
+                        <!-- 编辑工具栏-->
+                        <EditorToolBar:EditorToolBar x:Name="editorTool" HorizontalAlignment="Left"  ></EditorToolBar:EditorToolBar>
+                    </DockPanel>
+                </DockPanel>
+            <!--</Border>-->
+        </StackPanel>
+        <!--状态条-->
+        <DockPanel DockPanel.Dock="Bottom"  VerticalAlignment="Bottom"  >
+            <TextBlock x:Name="tbVersionInfo" Foreground="Black" DockPanel.Dock="Right" Margin="0 0 5 0" HorizontalAlignment="Right" Text="MyInfoBase 版本： 1  " VerticalAlignment="Center" />
+            <TextBlock Margin="5 0 0 0" x:Name="tbInfo" Text="Hello!" Foreground="Black" HorizontalAlignment="Stretch" />
+        </DockPanel>
+      
+            <infoTab:InfoTabControl x:Name="DBtabContainer" Style="{StaticResource TabControlStyle1}"  >
+        
+        </infoTab:InfoTabControl>
+       
+        
+    </DockPanel >
+</Window>

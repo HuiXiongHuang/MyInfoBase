@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="WPFToolBar.NodeToolBar.NodeToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFToolBar.NodeToolBar"
+             xmlns:customCtrl="clr-namespace:WPFCustomControlLibrary;assembly=WPFCustomControlLibrary"
+             xmlns:WPFCustomCommands="clr-namespace:WPFCustomCommands;assembly=WPFCustomCommands"
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="300">
+
+    
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/WpfCustomControlLibrary;component/CustomControl.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Horizontal"  >
+        
+            
+            <customCtrl:ImageButton Icon="images/Back.png" x:Name="btnGoBack" ToolTip="回退" Command="WPFCustomCommands:WPFCustomCommands.GoBack"  />
+            <customCtrl:ImageButton Icon="images/Forward.png" x:Name="btnGoForward"   ToolTip="前进" Command="WPFCustomCommands:WPFCustomCommands.GoForward" />
+            <Separator/>
+            <customCtrl:ImageButton Icon="images/AddRoot.ico" ToolTip="添加根目录"     Command="WPFCustomCommands:WPFCustomCommands.AddRoot"    />
+            <customCtrl:ImageButton Icon="images/AddBrother.ico"  ToolTip="添加兄弟目录"  Command="WPFCustomCommands:WPFCustomCommands.AddSibling"  />
+            <customCtrl:ImageButton Icon="images/AddChild.ico" ToolTip="添加子目录"  Command="WPFCustomCommands:WPFCustomCommands.AddChild"/>
+            <Separator/>
+            <customCtrl:ImageButton Icon="images/Rename.ico" ToolTip="当前节点改名" Command="WPFCustomCommands:WPFCustomCommands.RenameNode"/>
+            <customCtrl:ImageButton Icon="images/delete.ico" ToolTip="删除当前节点"  Command="WPFCustomCommands:WPFCustomCommands.DeleteNode"/>
+            <customCtrl:ImageButton Icon="images/biaoqian.png" ToolTip="添加标签"  Command="WPFCustomCommands:WPFCustomCommands.AddLabelToInfoNode" />
+          
+        </StackPanel>
+    <StackPanel Orientation="Horizontal">
+        <customCtrl:ImageButton Icon="images/cut_node.png"  ToolTip="剪切节点" Command="WPFCustomCommands:WPFCustomCommands.CutNode"/>
+        <customCtrl:ImageButton Icon="images/paste_node.png" ToolTip="粘贴节点" Command="WPFCustomCommands:WPFCustomCommands.PasteNode"/>
+        <Separator />
+        <customCtrl:ImageButton Icon="images/move_up.ico" ToolTip="节点上移" Command="WPFCustomCommands:WPFCustomCommands.MoveUp"/>
+        <customCtrl:ImageButton Icon="images/move_down.ico" ToolTip="节点下移" Command="WPFCustomCommands:WPFCustomCommands.MoveDown"/>
+        <customCtrl:ImageButton Icon="images/move_left.ico" ToolTip="节点升级" Command="WPFCustomCommands:WPFCustomCommands.MoveLeft"/>
+        <customCtrl:ImageButton Icon="images/move_right.ico" ToolTip="节点降级" Command="WPFCustomCommands:WPFCustomCommands.MoveRight"/>
+        <Separator />
+        <customCtrl:ImageButton Icon="images/find.png" ToolTip="查找" Command="WPFCustomCommands:WPFCustomCommands.ShowFindNodesWindow"/>
+            <customCtrl:ImageButton Icon="images/shuqian.png" ToolTip="添加书签"  Command="WPFCustomCommands:WPFCustomCommands.AddBookMark" />
+
+        </StackPanel>
+    </StackPanel>
+</UserControl>

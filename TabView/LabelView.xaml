@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="WPFDBInfoTab.LabelView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPFDBInfoTab"
+               xmlns:SuperTree="clr-namespace:WPFSuperTreeView;assembly=WPFSuperTreeView"
+               xmlns:WPFCustomCommands="clr-namespace:WPFCustomCommands;assembly=WPFCustomCommands"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <SuperTree:SuperTreeView x:Name="tree" 
+                  Margin="0,0" VerticalAlignment="Stretch"  
+                SelectedItemChanged2="OnTreeViewSelectedItemChanged" 
+                    ContextMenuOpening="treeView1_ContextMenuOpening"                     
+                PreviewMouseRightButtonDown="treeView1_PreviewMouseRightButtonDown"
+                PreviewKeyDown="treeView1_PreviewKeyDown" >
+        <SuperTree:SuperTreeView.ContextMenu>
+            <ContextMenu Padding="0" BorderThickness="0" >
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.CopyNodeText" Header="复制节点文本"/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.ExpandAllNode" Header="展开全部子树"/>
+                <Separator/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.CutNode" Header="剪切节点"/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.PasteNode" Header="粘贴节点"/>
+                <Separator/>
+                <MenuItem Header="添加下级节点" Command="WPFCustomCommands:WPFCustomCommands.AddChild">
+                </MenuItem>
+                <MenuItem Header="添加同级节点" Command="WPFCustomCommands:WPFCustomCommands.AddSibling">
+                </MenuItem>
+                <MenuItem Header="添加一级节点" Command="WPFCustomCommands:WPFCustomCommands.AddRoot">
+                </MenuItem>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.DeleteNode" Header="删除节点"/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.RenameNode" Header="节点改名"/>
+                <Separator/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.MoveUp" Header="节点上移"/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.MoveDown" Header="节点下移"/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.MoveLeft" Header="节点升级"/>
+                <MenuItem Command="WPFCustomCommands:WPFCustomCommands.MoveDown" Header="节点降级"/>
+                <Separator/>
+                <MenuItem Header="设置节点文本粗体" Command="WPFCustomCommands:WPFCustomCommands.ToggleNodeTextBold"/>
+                <MenuItem Header="修改节点文本颜色"/>
+              
+            </ContextMenu>
+        </SuperTree:SuperTreeView.ContextMenu>
+    </SuperTree:SuperTreeView>
+</UserControl>

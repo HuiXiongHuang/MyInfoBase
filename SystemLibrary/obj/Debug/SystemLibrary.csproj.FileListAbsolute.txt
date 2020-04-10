@@ -1,0 +1,5 @@
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\bin\Debug\SystemLibrary.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\bin\Debug\SystemLibrary.pdb
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.csproj.CoreCompileInputs.cache
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.dll
+C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.pdb
