@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFMessageBoxView;
+using MessageBox = WPFMessageBoxView.MessageBox;
 
 namespace WPFSuperRichTextBox
 {
@@ -130,7 +132,7 @@ namespace WPFSuperRichTextBox
             {
                 if (manager.CurrentPosition.CompareTo(rtb.Document.ContentEnd) == 0)
                 {
-                    MessageBox.Show("己处理完全部文档，没有找到要替换的文字。");
+                    MessageBox.ShowInformation("己处理完全部文档，没有找到要替换的文字。");
                     rtb.CaretPosition = rtb.Document.ContentStart;
                     manager.CurrentPosition = rtb.CaretPosition;
                 }
@@ -201,7 +203,7 @@ namespace WPFSuperRichTextBox
             addStringToSearchStrings(findText);
             //“联动”查找与替换词语
             SuperRichTextBoxResourses.SearchReplaceDictionary[findText] = replaceText;
-            MessageBox.Show("一共完成了" + result.ToString() + "处替换工作");
+            MessageBox.ShowInformation("一共完成了" + result.ToString() + "处替换工作");
 
         }
 

@@ -7,24 +7,26 @@
                xmlns:cmds="clr-namespace:WPFSuperRichTextBox;assembly=WPFSuperRichTextBox"
               xmlns:WPFCustomCommands="clr-namespace:WPFCustomCommands;assembly=WPFCustomCommands"
               xmlns:InfoNode="clr-namespace:InfoNode;assembly=InfoNode"
-             
              mc:Ignorable="d" 
              d:DesignHeight="30"  Width="440" Focusable="True">
 
 
     <!--文件工具栏,必须使用ToolBar,否则button绑定的命令将无效-->
     <ToolBar Background="Transparent" HorizontalAlignment="Left" Width="965" Margin="0,0,-525,0"  >
+
         <ToolBar.OpacityMask>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="Black" Offset="0.334"/>
                 <GradientStop Color="White" Offset="0.655"/>
             </LinearGradientBrush>
         </ToolBar.OpacityMask>
+
         <Button Name="btnOpenFile" Style="{StaticResource imagebtn2}" Command="cmds:MySuperEditorCommands.OpenDocument" ToolTip="打开文件"
                         >
             <Image Source="Images\open.png" Stretch="UniformToFill" >
             </Image>
         </Button>
+
         <Button Name="btnInsertFile" Style="{StaticResource imagebtn2}"
                         Command="cmds:MySuperEditorCommands.InsertDocument" ToolTip="插入文件">
             <Image Source="Images\InsertFile.png" Stretch="UniformToFill" />
@@ -100,6 +102,7 @@
         <Button Style="{StaticResource imagebtn2}" Command="ApplicationCommands.Undo" CommandTarget="{Binding ElementName=RichTextBox1}" ToolTip=" 撤消">
             <Image Source="Images\Undo.png" Stretch="UniformToFill">
             </Image>
+
         </Button>
         <Button Style="{StaticResource imagebtn2}" Command="ApplicationCommands.Redo" CommandTarget="{Binding ElementName=RichTextBox1}" ToolTip="重做">
             <Image Source="Images\Redo.png" Stretch="UniformToFill">
@@ -107,17 +110,20 @@
 
         </Button>
         <Separator />
+
         <Button  Style="{StaticResource imagebtn2}" Name="btnSearch" ToolTip="在文档中查找字词"
                         Command="ApplicationCommands.Find">
             <Image Source="Images\FindWord.png" Stretch="UniformToFill">
             </Image>
+
         </Button>
         <Separator />
-        <Button Name="btnAddAttachment" ToolTip="添加附件" Style="{StaticResource imagebtn2}"
+
+        <!--<Button Name="btnAddAttachment" ToolTip="添加附件" Style="{StaticResource imagebtn2}"
                        >
             <Image Source="Images\AddAttachment.png" Stretch="UniformToFill">
             </Image>
-        </Button>
+        </Button>-->
 
     </ToolBar>
 

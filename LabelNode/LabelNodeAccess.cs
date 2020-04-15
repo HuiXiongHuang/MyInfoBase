@@ -78,7 +78,7 @@ namespace LabelNode
 
             }
             dbobj.ModifyTime = obj.ModifyTime;
-            dbobj.Label = obj.Text;
+            //dbobj.Label = obj.Text;
             dbobj.Path = obj.Path;
             // dbobj.RTFText = (String.IsNullOrEmpty(obj.RTFText)) ? null : Encoding.UTF8.GetBytes(obj.RTFText);
             if (isNew)

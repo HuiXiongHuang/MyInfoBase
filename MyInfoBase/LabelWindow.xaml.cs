@@ -162,8 +162,8 @@ namespace MyInfoBase
                 //如果不存在同名的路径
                 if (nodeExisted == false)
                 {
-                    NodeText = newNodeText;
-                    LastPasteNodeText = NodeText;
+                    //NodeText = newNodeText;
+                    //LastPasteNodeText = NodeText;
                 }
             }
             //如果还有重复路径的，则循环使用随机数，务必保证路径不会相同
@@ -280,7 +280,7 @@ namespace MyInfoBase
             string labelnodePath = labeltree.SelectedItem.NodeData.DataItem.Path;
             string infoNodePath = InfoNodeDataInfoObj.Path;
             //创建多对多关联时，对信息节点与标签节点在数据库中均存在的，不能直接修改数据库表或实体类，而应该修改关联关系
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 var infoNode= context.InfoNodeDBs.FirstOrDefault(p => p.Path == infoNodePath);
                 var labelNode = context.LabelNodeDBs.FirstOrDefault(p => p.Path == labelnodePath);

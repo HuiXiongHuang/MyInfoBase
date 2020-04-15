@@ -18,7 +18,7 @@ namespace DataAccessLayer
         public List<String> SearchDataNodeText(String FindWhat, String EFConnectionString)
         {
 
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 List<String> result = new List<string>();
                 

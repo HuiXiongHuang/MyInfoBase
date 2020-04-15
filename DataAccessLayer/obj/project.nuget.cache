@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "dgSpecHash": "N4K0YeV8uEJHndmmNuHyPhphhYukUaEHImm4x8iw33uXL3ZW/vRc96WD97530sqRiVHyKH0vC98RE5PxU+P5DQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\DataAccessLayer\\DataAccessLayer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\HHX\\.nuget\\packages\\entityframework\\6.4.0\\entityframework.6.4.0.nupkg.sha512",
+    "C:\\Users\\HHX\\.nuget\\packages\\entityframework.zh-hans\\6.2.0\\entityframework.zh-hans.6.2.0.nupkg.sha512",
+    "C:\\Users\\HHX\\.nuget\\packages\\system.data.sqlite\\1.0.112\\system.data.sqlite.1.0.112.nupkg.sha512",
+    "C:\\Users\\HHX\\.nuget\\packages\\system.data.sqlite.core\\1.0.112\\system.data.sqlite.core.1.0.112.nupkg.sha512",
+    "C:\\Users\\HHX\\.nuget\\packages\\system.data.sqlite.ef6\\1.0.112\\system.data.sqlite.ef6.1.0.112.nupkg.sha512",
+    "C:\\Users\\HHX\\.nuget\\packages\\system.data.sqlite.linq\\1.0.112\\system.data.sqlite.linq.1.0.112.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "检测到的包版本在依赖项约束之外: EntityFramework.zh-Hans 6.2.0 需要 EntityFramework (= 6.2.0)，但版本 EntityFramework 6.4.0 已解决。",
+      "libraryId": "EntityFramework",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.0",
+        ".NETFramework,Version=v4.0/win",
+        ".NETFramework,Version=v4.0/win-x64",
+        ".NETFramework,Version=v4.0/win-x86"
+      ]
+    }
+  ]
+}

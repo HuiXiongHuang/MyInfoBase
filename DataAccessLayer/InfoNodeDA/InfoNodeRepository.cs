@@ -7,13 +7,14 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using EntityState = System.Data.Entity.EntityState;
 
 namespace DataAccessLayer.InfoNodeDA
 {
     /// <summary>
     /// 完成信息节点的增删改查功能
     /// </summary>
-    public class InfoNodeRepository : BaseRepository<MyDBEntities>
+    public class InfoNodeRepository : BaseRepository<MyDBModelOfSqliteContainer>
     {
         private String EFConnectionString = "";
 
@@ -24,12 +25,12 @@ namespace DataAccessLayer.InfoNodeDA
 
         //}
         public InfoNodeRepository()
-            : base(new MyDBEntities(""))
+            : base(new MyDBModelOfSqliteContainer(""))
         {
 
         }
         public InfoNodeRepository(string efConnectionString)
-            : base(new MyDBEntities(efConnectionString))
+            : base(new MyDBModelOfSqliteContainer(efConnectionString))
         {
             EFConnectionString = efConnectionString;
             //_dbContext = new MyDBEntities(EFConnectionString);
@@ -107,7 +108,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// <returns></returns>
         public List<InfoNodeDB> GetAllInfoNodeDBWithItsDiskFile()
         {
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs.Include("DiskFiles")
                             select item;
@@ -123,7 +124,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// <returns></returns>
         public List<InfoNodeDB> GetAllInfoNodeDBWithoutItsDiskFile()
         {
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             select item;
@@ -144,7 +145,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return null;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 return context.InfoNodeDBs.Include("DiskFiles").FirstOrDefault(p => p.Path == path);
             }
@@ -161,7 +162,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return null;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 return context.InfoNodeDBs.FirstOrDefault(p => p.Path == path);
             }
@@ -196,7 +197,7 @@ namespace DataAccessLayer.InfoNodeDA
                 return null;
             }
             ObservableCollection<DBFileInfo> fileInfos = new ObservableCollection<DBFileInfo>();
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             where item.Path == path
@@ -233,7 +234,7 @@ namespace DataAccessLayer.InfoNodeDA
                 return null;
             }
             ObservableCollection<DBLabelInfo> labelInfos = new ObservableCollection<DBLabelInfo>();
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             where item.Path == path
@@ -247,7 +248,7 @@ namespace DataAccessLayer.InfoNodeDA
                         {
                             ModifyTime = label.ModifyTime.Value,
                             Path = label.Path,
-                            Label = label.Label,
+                           // Label = label.Label,
                             ID = label.ID
                         });
 
@@ -269,7 +270,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return null;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 return context.InfoNodeDBs.Include("LabelNodeDBs").FirstOrDefault(p => p.Path == path);
             }
@@ -289,7 +290,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return 0;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -314,7 +315,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -342,7 +343,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return 0;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -366,7 +367,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// <param name="path"></param>
         public int DeleteInfoNodeDBAndItsChildByPath(String path)
         {
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
              
                 var query = from item in context.InfoNodeDBs
@@ -406,7 +407,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// <returns></returns>
         public int DeleteInfoNodeDB(String path)
         {
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             where item.Path == path
@@ -438,7 +439,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// </summary>
         public void DeleteAllInfoNodeRecords()
         {
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 List<InfoNodeDB> InfoNodeObjs = context.InfoNodeDBs.ToList();
                 foreach (var InfoNodeObj in InfoNodeObjs)
@@ -473,7 +474,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -519,7 +520,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return;
             }
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -597,7 +598,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// <returns></returns>
         public byte[] getFileContent(int fileID)
         {
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 DiskFile file = context.DiskFiles.FirstOrDefault(f => f.ID == fileID);
                 if (file != null)
@@ -615,7 +616,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// <returns></returns>
         public LabelNodeDB getLabelNodeDB(int labelID)
         {
-            using (MyDBEntities context = new MyDBEntities(EFConnectionString))
+            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
             {
                 LabelNodeDB label = context.LabelNodeDBs.FirstOrDefault(f => f.ID == labelID);
                 if (label != null)

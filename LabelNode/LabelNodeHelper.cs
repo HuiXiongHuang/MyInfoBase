@@ -32,7 +32,7 @@ namespace LabelNode
                 ModifyTime = obj.ModifyTime,
                 Path = obj.Path,
               //RTFText = String.IsNullOrEmpty(obj.RTFText) ? null : Encoding.UTF8.GetBytes(obj.RTFText),
-                Label = String.IsNullOrEmpty(obj.Text) ? "" : obj.Text,
+                //Label = String.IsNullOrEmpty(obj.Text) ? "" : obj.Text,
                 ID = obj.ID
             };
 
@@ -51,7 +51,7 @@ namespace LabelNode
             }
             LabelNodeDataInfo obj = new LabelNodeDataInfo()
             {
-                 Text = String.IsNullOrEmpty(dbobj.Label) ? "" : dbobj.Label,
+              //   Text = String.IsNullOrEmpty(dbobj.Label) ? "" : dbobj.Label,
               //  RTFText = dbobj.RTFText == null ? "" : Encoding.UTF8.GetString(dbobj.RTFText),
                 Path = dbobj.Path,
                 ModifyTime = dbobj.ModifyTime.Value,

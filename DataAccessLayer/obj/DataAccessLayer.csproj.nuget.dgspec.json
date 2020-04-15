@@ -1,0 +1,130 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\DataAccessLayer\\DataAccessLayer.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\DataAccessLayer\\DataAccessLayer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\DataAccessLayer\\DataAccessLayer.csproj",
+        "projectName": "DataAccessLayer",
+        "projectPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\DataAccessLayer\\DataAccessLayer.csproj",
+        "packagesPath": "C:\\Users\\HHX\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\DataAccessLayer\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\HHX\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net40"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net40": {
+            "projectReferences": {
+              "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\InterfaceLibrary\\InterfaceLibrary.csproj": {
+                "projectPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\InterfaceLibrary\\InterfaceLibrary.csproj"
+              },
+              "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\Model\\Model.csproj": {
+                "projectPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\Model\\Model.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net40": {
+          "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            },
+            "EntityFramework.zh-Hans": {
+              "target": "Package",
+              "version": "[6.2.0, )"
+            },
+            "System.Data.SQLite": {
+              "target": "Package",
+              "version": "[1.0.112, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.112, )"
+            },
+            "System.Data.SQLite.EF6": {
+              "target": "Package",
+              "version": "[1.0.112, )"
+            },
+            "System.Data.SQLite.Linq": {
+              "target": "Package",
+              "version": "[1.0.112, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\InterfaceLibrary\\InterfaceLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\InterfaceLibrary\\InterfaceLibrary.csproj",
+        "projectName": "InterfaceLibrary",
+        "projectPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\InterfaceLibrary\\InterfaceLibrary.csproj",
+        "frameworks": {
+          "net40": {
+            "projectReferences": {
+              "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\PublicLibrary\\PublicLibrary.csproj": {
+                "projectPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\PublicLibrary\\PublicLibrary.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    },
+    "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\Model\\Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\Model\\Model.csproj",
+        "projectName": "Model",
+        "projectPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\Model\\Model.csproj"
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    },
+    "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\PublicLibrary\\PublicLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\PublicLibrary\\PublicLibrary.csproj",
+        "projectName": "PublicLibrary",
+        "projectPath": "C:\\Users\\HHX\\Desktop\\MyInfoBaseV1.0.3.0\\MyInfoBase\\PublicLibrary\\PublicLibrary.csproj"
+      },
+      "frameworks": {
+        "net40": {}
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
-C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\bin\Debug\SystemLibrary.dll
-C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\bin\Debug\SystemLibrary.pdb
-C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.csproj.CoreCompileInputs.cache
-C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.dll
-C:\Users\HHX\Desktop\Togithub\MyInfoBaseV1.0.2.1\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.pdb
+C:\Users\HHX\Documents\IT\项目与架构\项目\MyInfoBase\版本1.0.3.0\Togithub\MyInfoBaseV1.0.3.0\MyInfoBase\SystemLibrary\bin\Debug\SystemLibrary.dll
+C:\Users\HHX\Documents\IT\项目与架构\项目\MyInfoBase\版本1.0.3.0\Togithub\MyInfoBaseV1.0.3.0\MyInfoBase\SystemLibrary\bin\Debug\SystemLibrary.pdb
+C:\Users\HHX\Documents\IT\项目与架构\项目\MyInfoBase\版本1.0.3.0\Togithub\MyInfoBaseV1.0.3.0\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.csproj.CoreCompileInputs.cache
+C:\Users\HHX\Documents\IT\项目与架构\项目\MyInfoBase\版本1.0.3.0\Togithub\MyInfoBaseV1.0.3.0\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.dll
+C:\Users\HHX\Documents\IT\项目与架构\项目\MyInfoBase\版本1.0.3.0\Togithub\MyInfoBaseV1.0.3.0\MyInfoBase\SystemLibrary\obj\Debug\SystemLibrary.pdb

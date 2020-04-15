@@ -53,7 +53,7 @@ namespace WPFSuperRichTextBox
         /// <summary>
         /// 提供打印预览功能
         /// </summary>
-        private PrintManager printManager = null;
+     //   private PrintManager printManager = null;
 
 
         #endregion
@@ -70,7 +70,11 @@ namespace WPFSuperRichTextBox
             double size;
             if (Double.TryParse(txtFontSize.Text, out size))
             {
-            _mainWindow.GetRichTextBox().Selection.ApplyPropertyValue(
+                if (_mainWindow.GetRichTextBox() == null)
+                {
+                    return;
+                }
+                _mainWindow.GetRichTextBox().Selection.ApplyPropertyValue(
                         FlowDocument.FontSizeProperty, size);
             }
 
@@ -93,11 +97,19 @@ namespace WPFSuperRichTextBox
         {
             if (lstFontColor.SelectedValue != null)
             {
+                if (_mainWindow.GetRichTextBox() == null)
+                {
+                    return;
+                }
                 _mainWindow.GetRichTextBox().Selection.ApplyPropertyValue(FlowDocument.ForegroundProperty,
                                                       lstFontColor.SelectedValue);
             }
             else
             {
+                if (_mainWindow.GetRichTextBox() == null)
+                {
+                    return;
+                }
                 //默认为红色
                 _mainWindow.GetRichTextBox().Selection.ApplyPropertyValue(FlowDocument.ForegroundProperty,
                                                    Brushes.Red);
@@ -110,6 +122,10 @@ namespace WPFSuperRichTextBox
             if (rect != null)
             {
                 lstFontColor.SelectedValue = rect.Fill;
+                if (_mainWindow.GetRichTextBox()==null)
+                {
+                    return;
+                }
                 _mainWindow.GetRichTextBox().Selection.ApplyPropertyValue(FlowDocument.ForegroundProperty, lstFontColor.SelectedValue);
             }
         }
@@ -119,6 +135,10 @@ namespace WPFSuperRichTextBox
             Rectangle rect = e.Source as Rectangle;
             if (rect != null)
             {
+                if (_mainWindow.GetRichTextBox() == null)
+                {
+                    return;
+                }
                 lstBackgroundColor.SelectedValue = rect.Fill;
                 _mainWindow.GetRichTextBox().Selection.ApplyPropertyValue(FlowDocument.BackgroundProperty,
                                                     lstBackgroundColor.SelectedValue);
@@ -129,6 +149,10 @@ namespace WPFSuperRichTextBox
 
         private void listMarkerStyleChange(object sender, RoutedEventArgs e)
         {
+            if (_mainWindow.GetRichTextBox() == null)
+            {
+                return;
+            }
             List list = GetList();
             switch ((e.Source as MenuItem).Name)
             {
@@ -182,6 +206,11 @@ namespace WPFSuperRichTextBox
         /// <returns></returns>
         private List GetList()
         {
+            if (_mainWindow.GetRichTextBox() == null)
+            {
+                return null;
+            }
+
             List list = rtfManager.FindListAncestor(_mainWindow.GetRichTextBox().Selection.Start.Parent);
             if (list == null)
             {
@@ -193,6 +222,10 @@ namespace WPFSuperRichTextBox
 
         private void btnSetBulletList_Click(object sender, RoutedEventArgs e)
         {
+            if (_mainWindow.GetRichTextBox() == null)
+            {
+                return;
+            }
             List list = GetList();
             list.MarkerStyle = (TextMarkerStyle)Enum.Parse(typeof(TextMarkerStyle), "Box");
             //获取当前选中的字体大小
@@ -206,6 +239,10 @@ namespace WPFSuperRichTextBox
 
         private void btnSetNumberList_Click(object sender, RoutedEventArgs e)
         {
+            if (_mainWindow.GetRichTextBox() == null)
+            {
+                return;
+            }
             List list = rtfManager.FindListAncestor(_mainWindow.GetRichTextBox().Selection.Start.Parent);
             if (list == null)
             {
@@ -238,6 +275,10 @@ namespace WPFSuperRichTextBox
         {
             if (cboFontFamilies.SelectedItem != null)
             {
+                if (_mainWindow.GetRichTextBox() == null)
+                {
+                    return;
+                }
                 _mainWindow.GetRichTextBox().Selection.ApplyPropertyValue(TextElement.FontFamilyProperty, cboFontFamilies.SelectedItem);
                 _mainWindow.GetRichTextBox().Focus();
                 e.Handled = true;

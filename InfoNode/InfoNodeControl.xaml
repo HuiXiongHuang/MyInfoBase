@@ -32,8 +32,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                               
-                                    <DataGrid x:Name="dgFiles"  Margin="0"  CanUserAddRows="False" GridLinesVisibility="Horizontal" CanUserDeleteRows="False" IsReadOnly="True" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" BorderThickness="0"  >
+
+                            <DataGrid x:Name="dgFiles"  Margin="0"  CanUserAddRows="False" GridLinesVisibility="Horizontal" CanUserDeleteRows="False" IsReadOnly="True" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" BorderThickness="0" CanUserResizeColumns="True" >
                                         <DataGrid.RowStyle >
                                             <Style TargetType="DataGridRow">
                                                 <Setter Property="Background" Value="White"/>
@@ -50,7 +50,7 @@
                                             </Style>
                                         </DataGrid.RowStyle>
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="路径名" Width="100*" Binding="{Binding FilePath}" HeaderStyle="{StaticResource dgheaderStyle}" >
+                                            <DataGridTextColumn Header="路径名" Width="300" Binding="{Binding FilePath}" HeaderStyle="{StaticResource dgheaderStyle}"  >
                                                 <DataGridTextColumn.ElementStyle>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="TextWrapping" Value="Wrap" ></Setter>
@@ -59,7 +59,7 @@
                                                 </DataGridTextColumn.ElementStyle>
                                             </DataGridTextColumn>
                                             <DataGridTextColumn Header="大小" Width="100" Binding="{Binding FileSize,Converter={StaticResource fileSizeConverter}}" HeaderStyle="{StaticResource dgheaderStyle}"  />
-                                            <DataGridTextColumn Header="修改时间" Width="100" Binding="{Binding AddTime}" HeaderStyle="{StaticResource dgheaderStyle}" />
+                                            <DataGridTextColumn Header="修改时间" Width="*" Binding="{Binding AddTime}" HeaderStyle="{StaticResource dgheaderStyle}" />
 
 
                                         </DataGrid.Columns>

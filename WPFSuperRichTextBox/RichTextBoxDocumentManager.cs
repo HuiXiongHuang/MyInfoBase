@@ -35,8 +35,10 @@ namespace WPFSuperRichTextBox
 
         public RichTextBoxDocumentManager(RichTextBox rtf)
         {
+
             if (rtf == null)
-                throw new ArgumentNullException("必须传入一个有效的RichTextBox控件引用");
+                return;
+            //  throw new ArgumentNullException("必须传入一个有效的RichTextBox控件引用");
             _rtf = rtf;
 
 

@@ -124,6 +124,10 @@
       <Project>{d953bbc5-50ad-481b-9979-8c7b9653751c}</Project>
       <Name>SystemLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WPFMessageBoxView\WPFMessageBoxView.csproj">
+      <Project>{1b056a77-4bdc-4a12-bae8-f50b6009fcf5}</Project>
+      <Name>WPFMessageBoxView</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\alignLeft.png" />

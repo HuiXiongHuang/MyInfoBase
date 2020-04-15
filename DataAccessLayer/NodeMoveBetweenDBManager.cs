@@ -23,14 +23,14 @@ namespace DataAccessLayer
         ///// </summary>
         //private String _TargetDBFileWithPath = "";
 
-        private MyDBEntities SourceDbContext = null;
-        private MyDBEntities TargetDbContext = null;
+        private MyDBModelOfSqliteContainer SourceDbContext = null;
+        private MyDBModelOfSqliteContainer TargetDbContext = null;
         public NodeMoveBetweenDBManager(String SourceDBFileWithPath, String TargetDBFileWithPath)
         {
             //_SourceDBFileWithPath = SourceDBFileWithPath;
-            SourceDbContext = new MyDBEntities(DALConfig.getEFConnectionString(SourceDBFileWithPath));
+            SourceDbContext = new MyDBModelOfSqliteContainer(DALConfig.getEFConnectionString(SourceDBFileWithPath));
             //_TargetDBFileWithPath = TargetDBFileWithPath;
-            TargetDbContext = new MyDBEntities(DALConfig.getEFConnectionString(TargetDBFileWithPath));
+            TargetDbContext = new MyDBModelOfSqliteContainer(DALConfig.getEFConnectionString(TargetDBFileWithPath));
         }
         /// <summary>
         /// 将源数据库中的数据记录移到另一个数据库
@@ -89,7 +89,7 @@ namespace DataAccessLayer
 
                 foreach (var file in files)
                 {
-                    SourceDbContext.Entry(file).State = EntityState.Deleted;
+                    SourceDbContext.Entry(file).State =System.Data.Entity.EntityState.Deleted;
                 }
 
                 SourceDbContext.InfoNodeDBs.Remove(InfoNode);

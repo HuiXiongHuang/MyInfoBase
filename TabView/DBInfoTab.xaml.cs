@@ -42,15 +42,15 @@ namespace WPFDBInfoTab
 
         }
 
-        
+
         public DBInfoTab(DatabaseInfo infoObject)
         {
             InitializeComponent();
-          
+
             dbInfoObject = infoObject;
-        
-            OutLineViewObj =  new OutLineView(this);
-            LabelViewObj =  new LabelView(this);
+
+            OutLineViewObj = new OutLineView(this);
+            LabelViewObj = new LabelView(this);
 
             CurrentTreeView = InnerTreeViewList[dbInfoObject.LastTabViewIndex];//设置默认树窗口
             //outLinetree.TreeNodeType = "InfoNode";
@@ -73,31 +73,44 @@ namespace WPFDBInfoTab
             set;
         }
 
-        
+
         public OutLineView OutLineViewObj
         {
-    
+
 
             get { return outlinetreeContainer.Content as OutLineView; }
-            set 
+            set
             {
-  
-                    outlinetreeContainer.Content=value; 
+
+                outlinetreeContainer.Content = value;
             }
         }
         public LabelView LabelViewObj
         {
-     
+
             get { return labeltreeContainer.Content as LabelView; }
-            set 
+            set
             {
-         
+
                 labeltreeContainer.Content = value;
             }
         }
         public RichTextBox CurrentRichTextBox
         {
-            get { return (NodeUIContainer.Content as InfoNodeControl).InnerSuperRichTextBox.EmbedRichTextBox; }
+          
+            get 
+            {
+                if (CurrentTreeView.TreeNodeType=="InfoNode")
+                {
+                    if(NodeUIContainer.Content!=null)
+                    return (NodeUIContainer.Content as InfoNodeControl).InnerSuperRichTextBox.EmbedRichTextBox;
+                }
+                if (CurrentTreeView.TreeNodeType == "LabelNode")
+                {
+                    return (NodeUIContainer.Content as LabelNodeControl).InnerSuperRichTextBox.EmbedRichTextBox;
+                }
+                return null;
+            }
         }
         private ObservableCollection<SuperTreeView> _innerTreeViewList;
         public ObservableCollection<SuperTreeView> InnerTreeViewList

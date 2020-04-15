@@ -73,6 +73,7 @@ namespace MyInfoBase
         }
         public RichTextBox GetRichTextBox()
         {
+            if (curDbInfoTab == null) return null;
             return curDbInfoTab.CurrentRichTextBox;
         }
 
@@ -529,6 +530,7 @@ namespace MyInfoBase
 
         private void AddChild(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
@@ -538,6 +540,7 @@ namespace MyInfoBase
 
         private void AddSibling(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
@@ -547,6 +550,9 @@ namespace MyInfoBase
 
         private void AddRoot(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
+
+
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
@@ -558,6 +564,7 @@ namespace MyInfoBase
 
         private void DeleteNode(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
@@ -597,16 +604,28 @@ namespace MyInfoBase
                     curDbInfoTab.OutLineViewObj.SuperTree.EFConnectionString = DALConfig.getEFConnectionString(curDbInfoTab.dbInfoObject.DatabaseFilePath);
                     curDbInfoTab.InnerTabControl.SelectedIndex = 1;
                     curDbInfoTab.InnerTabControl.SelectedIndex = 0;
-                    
+
+                    MenuItem mnuChangeTextColor = curDbInfoTab.OutLineViewObj.SuperTree.ContextMenu.Items[curDbInfoTab.OutLineViewObj.SuperTree.ContextMenu.Items.Count - 1] as MenuItem;
+                    ColorBrushList brushList = new ColorBrushList(mnuChangeTextColor);
+                    brushList.BrushChanged += brushList_BrushChanged;
+                    //绑定树节点集合到查找窗体
+                    findNodesWindow.SetTree(curDbInfoTab.OutLineViewObj.SuperTree);
+
                 }
                 if (curDbInfoTab.CurrentTreeView.TreeNodeType == "LabelNode")
                 {
 
                     curDbInfoTab.LabelViewObj = new LabelView(curDbInfoTab);
-                    curDbInfoTab.LabelViewObj.SuperTree.EFConnectionString = DALConfig.getEFConnectionString(curDbInfoTab.dbInfoObject.DatabaseFilePath);
-                   
+                    curDbInfoTab.LabelViewObj.SuperTree.EFConnectionString = DALConfig.getEFConnectionString(curDbInfoTab.dbInfoObject.DatabaseFilePath); 
                     curDbInfoTab.InnerTabControl.SelectedIndex = 0;
                     curDbInfoTab.InnerTabControl.SelectedIndex = 1;
+
+                    MenuItem mnuChangeTextColor = curDbInfoTab.LabelViewObj.SuperTree.ContextMenu.Items[curDbInfoTab.LabelViewObj.SuperTree.ContextMenu.Items.Count - 1] as MenuItem;
+                    ColorBrushList brushList = new ColorBrushList(mnuChangeTextColor);
+                    brushList.BrushChanged += brushList_BrushChanged;
+                    //绑定树节点集合到查找窗体
+                    findNodesWindow.SetTree(curDbInfoTab.OutLineViewObj.SuperTree);
+
                 }
             }
 
@@ -616,6 +635,7 @@ namespace MyInfoBase
 
         private void RenameNode(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
@@ -635,6 +655,7 @@ namespace MyInfoBase
         private DBInfoTab cutNodeSourceTab = null;
         private void CutNode(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
@@ -661,6 +682,7 @@ namespace MyInfoBase
 
         private void PasteNode(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
@@ -824,12 +846,14 @@ namespace MyInfoBase
 
         private void ShowFindNodesWindow(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             findNodesWindow.Show();
         }
 
 
         private void ShowConfigWin(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             ConfigWin win = new ConfigWin();
             bool? result = win.ShowDialog();
             if (curDbInfoTab.CurrentTreeView.IsInEditMode)
@@ -858,7 +882,7 @@ namespace MyInfoBase
 
         private void GoBack(object sender, ExecutedRoutedEventArgs e)
         {
-
+            if (curDbInfoTab == null) return;
             curDbInfoTab.visitedNodesManager.GoBack();
 
         }
@@ -867,7 +891,7 @@ namespace MyInfoBase
 
         private void GoForward(object sender, ExecutedRoutedEventArgs e)
         {
-
+            if (curDbInfoTab == null) return;
             curDbInfoTab.visitedNodesManager.GoForward();
 
         }
@@ -900,7 +924,7 @@ namespace MyInfoBase
             openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             openFileDialog.RestoreDirectory = true;
 
-            openFileDialog.Filter = "sqlserver ce 4.0数据库（*.sdf）|*.sdf";
+            openFileDialog.Filter = "sqlite数据库（*.db）|*.db";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 String DBFileName = openFileDialog.FileName;
@@ -953,21 +977,22 @@ namespace MyInfoBase
         }
         private void CopyDB(object sender, ExecutedRoutedEventArgs e)
         {
-            String currentDir = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+          //  String currentDir = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            String currentDir = System.Environment.CurrentDirectory;
             String DBTemplateFileName = "";
-            if (File.Exists(currentDir + "\\MyDB.sdf"))
+            if (File.Exists(currentDir + "\\MyDB.db"))
             {
-                DBTemplateFileName = currentDir + "\\MyDB.sdf";
+                DBTemplateFileName = currentDir + "\\MyDB.db";
             }
             else
             {
-                if (File.Exists(currentDir + "\\template\\MyDB.sdf"))
+                if (File.Exists(currentDir + "\\template\\MyDB.db"))
                 {
-                    DBTemplateFileName = currentDir + "\\template\\MyDB.sdf";
+                    DBTemplateFileName = currentDir + "\\template\\MyDB.db";
                 }
                 else
                 {
-                    MessageBox.ShowInformation("数据库模板文件：templateDB.sdf未找到");
+                    MessageBox.ShowInformation("数据库模板文件：templateDB.db未找到");
                     return;
                 }
             }
@@ -979,9 +1004,9 @@ namespace MyInfoBase
             saveFileDialog.Title = "创建新资料库";
             DateTime now = DateTime.Now;
             String fileDateString = now.Year + "_" + now.Month + "_" + now.Day + "_" + now.Hour + "_" + now.Minute;
-            saveFileDialog.FileName = "MyDB_" + fileDateString + ".sdf";
-            saveFileDialog.Filter = "sqlserver ce 4.0数据库（*.sdf）|*.sdf";
-            saveFileDialog.DefaultExt = "sdf";
+            saveFileDialog.FileName = "MyDB_" + fileDateString + ".db";
+            saveFileDialog.Filter = "sqlite数据库（*.sdf）|*.db";
+            saveFileDialog.DefaultExt = "db";
 
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -1008,26 +1033,31 @@ namespace MyInfoBase
 
         private void MoveLeft(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             curDbInfoTab.MoveLeft(sender, e);
         }
 
         private void MoveRight(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             curDbInfoTab.MoveRight(sender, e);
         }
 
         private void MoveUp(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             curDbInfoTab.MoveUp(sender, e);
         }
 
         private void MoveDown(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             curDbInfoTab.MoveDown(sender, e);
         }
 
         private void AddLabelToInfoNode(object sender, ExecutedRoutedEventArgs e)
         {
+            if (curDbInfoTab == null) return;
             if (curDbInfoTab.CurrentTreeView.TreeNodeType == "LabelNode" || curDbInfoTab.CurrentTreeView.SelectedItem == null)
             {
                 return;
@@ -1044,7 +1074,7 @@ namespace MyInfoBase
 
         public void AddLabel(InfoNodeAccess access, InfoNodeDataInfo dataInfo)
         {
-
+            if (curDbInfoTab == null) return;
 
             var labelWindow = new LabelWindow(this, curDbInfoTab, access, dataInfo);
             labelWin = labelWindow;

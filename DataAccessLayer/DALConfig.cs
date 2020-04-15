@@ -11,15 +11,28 @@ namespace DataAccessLayer
     public class DALConfig
     {
         /// <summary>
-        /// 最大数据库文件大小设置为不超过4G
+        /// 最大sqlce数据库文件大小设置为不超过4G
         /// </summary>
-           private static String connectStringTemplate = "metadata=res://*/MyDBModel.csdl|res://*/MyDBModel.ssdl|res://*/MyDBModel.msl;provider=System.Data.SqlServerCe.4.0;provider connection string=\"data source={0};Max Database Size=4000;\"";
-        //private static String connectStringTemplate = "metadata=res://*/MyDBModel.csdl|res://*/MyDBModel.ssdl|res://*/MyDBModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source={0};integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;";
+        // private static String connectStringTemplate = "metadata=res://*/MyDBModel.csdl|res://*/MyDBModel.ssdl|res://*/MyDBModel.msl;provider=System.Data.SqlServerCe.4.0;provider connection string=\"data source={0};Max Database Size=4000;\"";
+        /// <summary>
+        /// sql server数据库连接字符串格式
+        /// </summary>
+        //  private static String connectStringTemplate= "metadata=res://*/MyDBModel.csdl|res://*/MyDBModel.ssdl|res://*/MyDBModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source={0};integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;";
+
+        /// <summary>
+        /// sqlite数据库连接字符串格式
+        /// </summary>
+        private static String connectStringTemplate = "metadata=res://*/MyDBModelOfSqlite.csdl|res://*/MyDBModelOfSqlite.ssdl|res://*/MyDBModelOfSqlite.msl;provider=System.Data.SQLite.EF6;provider connection string=\"data source={0};\"";
+
         public static String getEFConnectionString(String dbFileName)
         {
             return String.Format(connectStringTemplate, dbFileName);
         }
-        public static string getConStrSQL()
+        public static String getEFConnectionStringSqlce(String dbFileName)
+        {
+            return String.Format(connectStringTemplate, dbFileName);
+        }
+        public static string getConStrSql()
         {
 
             string connectionString = new System.Data.EntityClient.EntityConnectionStringBuilder

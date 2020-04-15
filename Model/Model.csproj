@@ -83,24 +83,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookMark.cs">
-      <DependentUpon>MyDBModel.tt</DependentUpon>
+      <DependentUpon>MyDBModelOfSqlite.tt</DependentUpon>
     </Compile>
     <Compile Include="DiskFile.cs">
-      <DependentUpon>MyDBModel.tt</DependentUpon>
+      <DependentUpon>MyDBModelOfSqlite.tt</DependentUpon>
     </Compile>
     <Compile Include="InfoNodeDB.cs">
-      <DependentUpon>MyDBModel.tt</DependentUpon>
+      <DependentUpon>MyDBModelOfSqlite.tt</DependentUpon>
     </Compile>
     <Compile Include="LabelNodeDB.cs">
-      <DependentUpon>MyDBModel.tt</DependentUpon>
+      <DependentUpon>MyDBModelOfSqlite.tt</DependentUpon>
     </Compile>
-    <Compile Include="MyDBModel.cs">
+    <Compile Include="MyDBModelOfSqlite.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyDBModel.tt</DependentUpon>
+      <DependentUpon>MyDBModelOfSqlite.tt</DependentUpon>
     </Compile>
     <Compile Include="NodeTree.cs">
-      <DependentUpon>MyDBModel.tt</DependentUpon>
+      <DependentUpon>MyDBModelOfSqlite.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -108,9 +108,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MyDBModel.tt">
+    <Content Include="MyDBModelOfSqlite.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MyDBModel.cs</LastGenOutput>
+      <LastGenOutput>MyDBModelOfSqlite.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
