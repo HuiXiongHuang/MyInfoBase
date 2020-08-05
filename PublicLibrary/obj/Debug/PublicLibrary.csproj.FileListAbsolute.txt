@@ -1,6 +1,0 @@
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\PublicLibrary\bin\Debug\PublicLibrary.dll
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\PublicLibrary\bin\Debug\PublicLibrary.pdb
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.csprojAssemblyReference.cache
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.csproj.CoreCompileInputs.cache
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.dll
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\PublicLibrary\obj\Debug\PublicLibrary.pdb

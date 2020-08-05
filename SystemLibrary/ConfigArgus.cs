@@ -12,7 +12,7 @@ namespace SystemLibrary
         /// <summary>
         /// 代表本软件的最新版本，每次更改之后，都应该更新此版本号
         /// </summary>
-        public const String version = "1.0";
+        public const String version = "1.0.3.1";
 
         private double treeNodeDefaultFontSize = 15;
         /// <summary>
@@ -23,7 +23,10 @@ namespace SystemLibrary
             get { return treeNodeDefaultFontSize; }
             set { treeNodeDefaultFontSize = value; }
         }
-
+        /// <summary>
+        /// 将最近一次数据库保存的位置，作为所有数据库的默认打开和创建路径
+        /// </summary>
+        public string DatabaseDefaultPath { get; set; }
         [NonSerialized]
         private bool _IsArgumentsValueChanged = false;
         /// <summary>

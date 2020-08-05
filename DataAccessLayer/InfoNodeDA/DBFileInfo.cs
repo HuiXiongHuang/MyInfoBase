@@ -1,6 +1,8 @@
 ﻿using Model;
+using PublicLibrary.Utils;
 using System;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace DataAccessLayer.InfoNodeDA
 {
@@ -13,7 +15,8 @@ namespace DataAccessLayer.InfoNodeDA
     /// </summary>
     public class DBFileInfo : INotifyPropertyChanged
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
+        public long FileContentID { get; set; }
         private String _filePath = "";
         public String FilePath
         {
@@ -27,6 +30,66 @@ namespace DataAccessLayer.InfoNodeDA
                 OnPropertyChanged("FilePath");
             }
         }
+        private byte[] _hashByte;
+        public byte[] FileHash
+        {
+            get
+            {
+                return _hashByte;
+            }
+            set
+            {
+                _hashByte = value;
+                OnPropertyChanged("HashByte");
+            }
+        }
+        private bool _isEncrypted = false;
+        public bool IsEncrypted
+        {
+            get
+            {
+                return _isEncrypted;
+            }
+            set
+            {
+                _isEncrypted = value;
+                if (_isEncrypted==false)
+                {
+                    EncryptedStatus = DecryptedIcon;
+                }
+                else
+                {
+                    EncryptedStatus = EncryptedIcon;
+                }
+
+            }
+        }
+        private ImageSource _encryptedStatus = null;
+        private static ImageSource DecryptedIcon =  ImageUtils.GetBitmapSourceFromImageFileName("pack://application:,,,/InfoNode;component/Images/jiesuo.png", UriKind.Absolute);
+        private static ImageSource EncryptedIcon = ImageUtils.GetBitmapSourceFromImageFileName("pack://application:,,,/InfoNode;component/Images/suo.png", UriKind.Absolute);
+
+        /// <summary>
+        /// 正常状态下的图标
+        /// </summary>
+        public ImageSource EncryptedStatus
+        {
+            get
+            {
+                if (_encryptedStatus == null)
+                {
+                    _encryptedStatus = DecryptedIcon;
+                }
+                return _encryptedStatus;
+            }
+            set
+            {
+                _encryptedStatus = value;
+
+                OnPropertyChanged("EncryptedStatus");
+            }
+
+        }
+
         private long _fileSize = 0;
         public long FileSize
         {
@@ -37,7 +100,21 @@ namespace DataAccessLayer.InfoNodeDA
             set
             {
                 _fileSize = value;
+                _fileSizeToUI = FileUtils.FileSizeFormater(_fileSize);
                 OnPropertyChanged("FileSize");
+            }
+        }
+        private string _fileSizeToUI = "";
+        public string FileSizeToUI
+        {
+            get
+            {
+                return _fileSizeToUI;
+            }
+            set
+            {
+                _fileSizeToUI = value;
+                OnPropertyChanged("FileSizeToUI");
             }
         }
         private DateTime _time;
@@ -54,28 +131,35 @@ namespace DataAccessLayer.InfoNodeDA
             }
         }
         /// <summary>
-        /// 将DBFileInfo对象转换为EF可以直接保存的DiskFile对象
+        /// 将DBFileInfo对象转换为EF可以直接保存的DiskFileInfo对象,不包括文件内容
         /// </summary>
         /// <param name="fileInfo"></param>
         /// <param name="fileContent"></param>
         /// <returns></returns>
-        public static DiskFile toDiskFile(DBFileInfo fileInfo, byte[] fileContent)
+        public static DiskFileInfo toDiskFileInfo(DBFileInfo fileInfo)
         {
             if (fileInfo != null)
             {
-                DiskFile file = new DiskFile()
+                DiskFileInfo file = new DiskFileInfo()
                 {
                     ID = fileInfo.ID,
                     FileSize = fileInfo.FileSize,
                     FilePath = fileInfo.FilePath,
                     AddTime = fileInfo.AddTime,
-                    FileContent = fileContent
+                    FileHash = fileInfo.FileHash,
+                    FileContentID = fileInfo.FileContentID,
+                    IsEncrypted=fileInfo.IsEncrypted
+
                 };
+
+
                 return file;
 
             }
             return null;
         }
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

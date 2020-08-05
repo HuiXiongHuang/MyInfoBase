@@ -22,6 +22,7 @@ using DataAccessLayer.NodeTreeDA;
 using DataAccessLayer;
 using System.Collections.ObjectModel;
 using LabelNode;
+using System.Threading.Tasks;
 
 namespace WPFDBInfoTab
 {
@@ -55,7 +56,7 @@ namespace WPFDBInfoTab
             CurrentTreeView = InnerTreeViewList[dbInfoObject.LastTabViewIndex];//设置默认树窗口
             //outLinetree.TreeNodeType = "InfoNode";
             //labeltree.TreeNodeType = "LabelNode";
-            visitedNodesManager = new VisitedNodesManager(CurrentTreeView);
+            visitedNodesManager = new VisitedNodesManager(OutLineViewObj.SuperTree);
 
             LoadInfoNodeControlEventManager loadInfoNodeControlEventManager = new LoadInfoNodeControlEventManager();
             loadInfoNodeControlEventManager.Register(this);
@@ -188,8 +189,6 @@ namespace WPFDBInfoTab
         public void SaveTreeToDB(SuperTreeView TreeViewNeedToSave)
         {
             String treeXml = TreeViewNeedToSave.saveToXmlString();
-            //if (treeXml == null)
-            //    return;
 
             (new NodeTreeRepository(DALConfig.getEFConnectionString(dbInfoObject.DatabaseFilePath))).SaveTree(treeXml, TreeViewNeedToSave.TreeNodeType);
 
@@ -252,7 +251,7 @@ namespace WPFDBInfoTab
        public void LoadDataAndShowInUI(TreeViewIconsItem newSelectedNode)
         {
 
-          
+
             NodeDataObject dataInfoObject = newSelectedNode.NodeData;
             //正确地设置可视化界面所关联的数据存取对象
             dataInfoObject.DataItem.SetRootControlDataAccessObj(dataInfoObject.AccessObject);
@@ -260,6 +259,10 @@ namespace WPFDBInfoTab
             //检查一下数据是否己被装入
             if (!dataInfoObject.DataItem.HasBeenLoadFromStorage)
             {
+
+                //当文件较大时该部分花的时间较长，用Task 把它放到单独的线程中去虽然可以解决此问题,但是当频繁操作时会占用系统大量内存，
+                //于是考虑在数据库中将文件信息与文件内容进行拆分
+
                 //装入数据
                 IDataInfo dataObj = dataInfoObject.AccessObject.GetDataInfoObjectByPath(newSelectedNode.Path);
 
@@ -274,7 +277,10 @@ namespace WPFDBInfoTab
                     newSelectedNode.NodeData.DataItem = dataObj;
 
                 }
-            }
+         
+
+
+        }
 
             if (dataInfoObject.DataItem.ShouldEmbedInHostWorkingBench)
             {
@@ -305,6 +311,9 @@ namespace WPFDBInfoTab
             //显示最新的数据
             dataInfoObject.DataItem.BindToRootControl();
             dataInfoObject.DataItem.RefreshDisplay();
+
+
+        
 
         }
 
@@ -607,16 +616,16 @@ namespace WPFDBInfoTab
 
                 if (e.IsHaveFile)
                 { 
-                    ChangeNodeIcon(node, node.NodeData.DataItem.NewIcon);
-                    node.NodeData.DataItem.IconType = "FileIcon";
+                    ChangeNodeIcon(node, node.NodeData.DataItem.FileIcon);
+                    node.IconType = "FileIcon";
                     SaveTreeToDB(OutLineViewObj.SuperTree);
                 }
-                else
-                {
-                    ChangeNodeIcon(node, node.NodeData.DataItem.NormalIcon);
-                    node.NodeData.DataItem.IconType = "InfoNode";
-                    SaveTreeToDB(OutLineViewObj.SuperTree);
-                }
+                //else
+                //{
+                //    ChangeNodeIcon(node, node.NodeData.DataItem.NormalIcon);
+                //    node.IconType = "InfoNode";
+                //    SaveTreeToDB(OutLineViewObj.SuperTree);
+                //}
             }
         }
     }

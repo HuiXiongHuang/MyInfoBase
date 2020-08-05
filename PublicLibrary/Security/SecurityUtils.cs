@@ -178,6 +178,22 @@ namespace PublicLibrary.Security
             return result;
         }
 
+        /// <summary>
+        /// 计算文件的哈希值，此哈希值是对文件本身内容加密，跟文件的“名字”、存放的路径和运行平台、设备无关
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static byte[] GetFileHash(string path)
+        {
+            //var hash = SHA256.Create();
+            //var hash = MD5.Create();
+            var hash = SHA1.Create();
+            var stream = new FileStream(path, FileMode.Open);
+            byte[] hashByte = hash.ComputeHash(stream);
+            stream.Close();
+            // return BitConverter.ToString(hashByte).Replace("-", "");
+            return hashByte;
+        }
 
     }
 }

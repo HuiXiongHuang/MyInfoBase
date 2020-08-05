@@ -92,6 +92,7 @@
     <Compile Include="IMainWindowFunction.cs" />
     <Compile Include="NodeDataObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UITextShow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PublicLibrary\PublicLibrary.csproj">

@@ -31,7 +31,7 @@ namespace InfoNode
             {
                 ModifyTime = obj.ModifyTime,
                 Path = obj.Path,
-                RTFText = String.IsNullOrEmpty(obj.RTFText) ? null : Encoding.UTF8.GetBytes(obj.RTFText),// RTFText是真正内容
+                RTFText = String.IsNullOrEmpty(obj.RTFText) ? null : Encoding.UTF8.GetBytes(obj.RTFText),// RTFText是内容
                 Text = String.IsNullOrEmpty(obj.Text) ? "" : obj.Text,//Text该属性仅用于在数据库中查找文本
                 Type=obj.IconType,
                 ID = obj.ID

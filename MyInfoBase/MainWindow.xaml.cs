@@ -37,16 +37,36 @@ using System.Collections.ObjectModel;
 using DataAccessLayer.InfoNodeDA;
 using LabelNode;
 using MessageBox = WPFMessageBoxView.MessageBox;
+using System.Windows.Threading;
+
 namespace MyInfoBase
 {
 
     public partial class MainWindow : Window, IMainWindowFunction, IHandler<AddLabelEvent>, IHandler<RemoveLabelEvent>
     {
+        public static readonly DependencyProperty InfoProperty = DependencyProperty.Register(
+       "Info",
+        typeof(string),
+        typeof(MainWindow),
+        new PropertyMetadata(default(string)));
+
+        public string Info
+        {
+            get => (string)GetValue(MainWindow.InfoProperty);
+            set => SetValue(MainWindow.InfoProperty, value);
+        }
+
+        // Update the TextBlock via data binding
+        public void ShowInfo(string info)
+        {
+            this.Info = info;
+        }
+
         /// <summary>
         /// 代表主窗体默认显示的标题
         /// </summary>
         private const String MainWindowDefaultTitle = "我的信息基地";
-
+    
         public MainWindow()
         {
             InitializeComponent();
@@ -89,6 +109,10 @@ namespace MyInfoBase
             //DBInfoTab._mainWindow = this;
             SuperWPFRichTextBox._mainWindow = this;
             EditorToolBar._mainWindow = this;
+            ////文本绑定
+            //textBlockUpdate = new TextBlockUpdate();
+            //tbInfo.DataContext = textBlockUpdate;
+
             //订阅事件
             AddLabelEventManager addLabelEventManager = new AddLabelEventManager();
             addLabelEventManager.Register(this);
@@ -101,7 +125,8 @@ namespace MyInfoBase
             //如果找到了配置文件
             if (File.Exists(SystemConfig.ConfigFileName))
             {
-                tbInfo.Text = "正在加载配置文件……";
+                //tbInfo.Text = "正在加载配置文件……";
+                ShowInfo("正在加载配置文件……");
                 //定位到上次访问的节点
                 try
                 {
@@ -165,12 +190,14 @@ namespace MyInfoBase
                 }
                 else
                 {
-                    tbInfo.Text = "未能找到上次打开的数据库，请从系统功能菜单中选择打开命令打开一个资料库";
+                    //tbInfo.Text = "未能找到上次打开的数据库，请从系统功能菜单中选择打开命令打开一个资料库";
+                    ShowInfo("未能找到上次打开的数据库，请从系统功能菜单中选择打开命令打开一个资料库");
                 }
             }
             else
             {
-                tbInfo.Text = "请从系统功能菜单中选择打开命令打开一个资料库";
+                //tbInfo.Text = "请从系统功能菜单中选择打开命令打开一个资料库";
+                ShowInfo("请从系统功能菜单中选择打开命令打开一个资料库");
             }
             //响应用户点击不同选项卡的操作,此处添加事件处理程序而不是在xaml文件中添加可以避免在初始化时执行一次。
             DBtabContainer.SelectionChanged += DBtabContainer_SelectionChanged;
@@ -220,6 +247,7 @@ namespace MyInfoBase
             {
                 return;
             }
+
             // this.Title = "我的信息基地-" + curDbInfoTab.dbInfoObject.DatabaseFilePath;
             this.Title = "我的信息基地";
             if (curDbInfoTab.HasBeenLoadedFromDB == false)
@@ -245,21 +273,34 @@ namespace MyInfoBase
         /// 线程安全的在主窗体上显示信息的方法
         /// </summary>
         /// <param name="info"></param>
-        public void ShowInfo(string info)
-        {
-            if (Dispatcher.CheckAccess())
-            {
-                tbInfo.Text = info;
-            }
-            else
-            {
-                Action<string> showInfoDel = (str) =>
-                {
-                    tbInfo.Text = info;
-                };
-                Dispatcher.BeginInvoke(showInfoDel, info);
-            }
-        }
+        //public void ShowInfo(string info)
+        //{
+
+        //    if (Dispatcher.CheckAccess())
+        //    {
+        //        //tbInfo.Text = info;
+        //        //  textBlockUpdate.TextMessage = info;
+        //        TextBlock textBlock = new TextBlock();
+        //        textBlock.Text = info;
+        //        tbInfoContainer.Content = textBlock;
+
+        //    }
+        //    else
+        //    {
+        //        Action<string> showInfoDel = (str) =>
+        //        {
+        //            //  tbInfo.Text = info;
+        //            //textBlockUpdate.TextMessage = info;
+        //            TextBlock textBlock = new TextBlock();
+        //            textBlock.Text = info;
+        //            tbInfoContainer.Content = textBlock;
+        //        };
+        //        Dispatcher.BeginInvoke(showInfoDel, info);
+        //    }
+        //}
+        
+
+  
         void DBtabContainer_TabPageClosed(object sender, TabPageClosedEventArgs e)
         {
             //保存被关闭的选项卡的数据
@@ -277,6 +318,10 @@ namespace MyInfoBase
                 SystemConfig.configArgus.DbInfos.RemoveAt(index);
             }
             SaveDbTabDataToDB(closedTab);
+
+            //将树保存
+            curDbInfoTab.SaveTreeToDB(curDbInfoTab.OutLineViewObj.SuperTree);
+            curDbInfoTab.SaveTreeToDB(curDbInfoTab.LabelViewObj.SuperTree);
         }
         /// <summary>
         /// 将指定选项卡的数据保存到数据库中
@@ -340,12 +385,12 @@ namespace MyInfoBase
             this.Title = "我的信息基地";
             this.Cursor = Cursors.AppStarting;
             //profiler发现，GetTreeFromDB()需要花费大量的时间，因此，将其移到独立的线程中去完成
-            tbInfo.Text = "从数据库中装载数据……";
+            //tbInfo.Text = "从数据库中装载数据……";
+            ShowInfo("从数据库中装载数据……");
             foreach (SuperTreeView treeView in curDbInfoTab.InnerTreeViewList)
             {
                 Task tsk = new Task(() =>
                 {
-
                     treeView.EFConnectionString = EFConnectString;
 
                     String treeXML = treeView.LoadTreeXMLFromDB();
@@ -359,7 +404,7 @@ namespace MyInfoBase
 
                         //绑定树节点集合到查找窗体
                         findNodesWindow.SetTree(curDbInfoTab.OutLineViewObj.SuperTree);
-                        curDbInfoTab.visitedNodesManager = new VisitedNodesManager(treeView);
+                        curDbInfoTab.visitedNodesManager = new VisitedNodesManager(curDbInfoTab.OutLineViewObj.SuperTree);
 
 
 
@@ -367,7 +412,8 @@ namespace MyInfoBase
 
                         ColorBrushList brushList = new ColorBrushList(mnuChangeTextColor);
                         brushList.BrushChanged += brushList_BrushChanged;
-                        tbInfo.Text = "就绪。";
+                        // tbInfo.Text = "就绪。";
+                        ShowInfo("就绪");
                         Cursor = null;
                         ////设置己从数据库中装入标记
                         curDbInfoTab.HasBeenLoadedFromDB = true;
@@ -569,7 +615,7 @@ namespace MyInfoBase
             {
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
             }
-         
+
 
 
 
@@ -611,12 +657,15 @@ namespace MyInfoBase
                     //绑定树节点集合到查找窗体
                     findNodesWindow.SetTree(curDbInfoTab.OutLineViewObj.SuperTree);
 
+                    curDbInfoTab.visitedNodesManager = new VisitedNodesManager(curDbInfoTab.OutLineViewObj.SuperTree);
+
+
                 }
                 if (curDbInfoTab.CurrentTreeView.TreeNodeType == "LabelNode")
                 {
 
                     curDbInfoTab.LabelViewObj = new LabelView(curDbInfoTab);
-                    curDbInfoTab.LabelViewObj.SuperTree.EFConnectionString = DALConfig.getEFConnectionString(curDbInfoTab.dbInfoObject.DatabaseFilePath); 
+                    curDbInfoTab.LabelViewObj.SuperTree.EFConnectionString = DALConfig.getEFConnectionString(curDbInfoTab.dbInfoObject.DatabaseFilePath);
                     curDbInfoTab.InnerTabControl.SelectedIndex = 0;
                     curDbInfoTab.InnerTabControl.SelectedIndex = 1;
 
@@ -648,7 +697,7 @@ namespace MyInfoBase
 
         }
 
-       
+
         /// <summary>
         /// 当剪切节点时，记录下被剪切节点所在的数据库选项卡
         /// </summary>
@@ -781,7 +830,7 @@ namespace MyInfoBase
             {
                 return;
             }
-            root.NodeData.AccessObject = NodeFactory.CreateNodeAccessObject(root.NodeData.DataItem.NodeType, EFConnectionString);
+            root.NodeData.AccessObject = NodeFactory.CreateNodeAccessObject(root.NodeType, EFConnectionString);
             foreach (var node in root.Items)
             {
                 UpdateDataAcessObject(node as TreeViewIconsItem, EFConnectionString);
@@ -807,6 +856,8 @@ namespace MyInfoBase
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+
+
             if (findNodesWindow != null)
             {
                 findNodesWindow.ShouldExit = true;
@@ -827,6 +878,16 @@ namespace MyInfoBase
                 curDbInfoTab.CurrentTreeView.SelectedItem.EndEdit();
             }
             SaveDbTabDataToDB(curDbInfoTab);
+            //将所有树保存,需注意树未加载成功时关闭APP会导致保存为空树，下次打开APP将看不到节点。
+
+            //foreach (TabItem tabitem in DBtabContainer.Items)
+            //{
+            //    var item = tabitem.Content as DBInfoTab;
+            //    String EFConnectString = DALConfig.getEFConnectionString(item.dbInfoObject.DatabaseFilePath);
+            //    item.SaveTreeToDB(item.OutLineViewObj.SuperTree);
+            //    item.SaveTreeToDB(item.LabelViewObj.SuperTree);
+            //}
+
 
 
             //更新配置文件内容
@@ -842,6 +903,16 @@ namespace MyInfoBase
             }
             SystemConfig.configArgus.ActiveDBIndex = DBtabContainer.SelectedIndex;
             DeepSerializer.BinarySerialize(SystemConfig.configArgus, SystemConfig.ConfigFileName);
+
+
+            //确保删除临时文件夹
+            String currentDir = System.Environment.CurrentDirectory;
+            string tempSaveFolder = currentDir + "\\" + "tempfolder";
+            if (Directory.Exists(tempSaveFolder))
+            {
+                Directory.Delete(tempSaveFolder, true);
+
+            }
         }
 
         private void ShowFindNodesWindow(object sender, ExecutedRoutedEventArgs e)
@@ -921,12 +992,25 @@ namespace MyInfoBase
         private void ChangeDB(object sender, ExecutedRoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string path = SystemConfig.configArgus.DatabaseDefaultPath;
+
+            if (Directory.Exists(path))
+            {
+                openFileDialog.InitialDirectory = SystemConfig.configArgus.DatabaseDefaultPath;
+            }
+            else
+            {
+                openFileDialog.InitialDirectory = System.Environment.CurrentDirectory;
+            }
+            //  openFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             openFileDialog.RestoreDirectory = true;
 
             openFileDialog.Filter = "sqlite数据库（*.db）|*.db";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                string directory = openFileDialog.FileName.ToString();
+                SystemConfig.configArgus.DatabaseDefaultPath = directory.Substring(0, directory.LastIndexOf("\\"));
+
                 String DBFileName = openFileDialog.FileName;
                 bool IsDBAlreadyOpen = false;
                 foreach (var item in DBtabContainer.Items)
@@ -977,7 +1061,7 @@ namespace MyInfoBase
         }
         private void CopyDB(object sender, ExecutedRoutedEventArgs e)
         {
-          //  String currentDir = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //  String currentDir = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             String currentDir = System.Environment.CurrentDirectory;
             String DBTemplateFileName = "";
             if (File.Exists(currentDir + "\\MyDB.db"))
@@ -999,17 +1083,34 @@ namespace MyInfoBase
 
 
             System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            saveFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            // saveFileDialog.InitialDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //saveFileDialog.InitialDirectory = System.Environment.CurrentDirectory; 
+            string path = SystemConfig.configArgus.DatabaseDefaultPath;
+
+            if (Directory.Exists(path))
+            {
+                saveFileDialog.InitialDirectory = SystemConfig.configArgus.DatabaseDefaultPath;
+            }
+            else
+            {
+                saveFileDialog.InitialDirectory = System.Environment.CurrentDirectory;
+            }
+
+
             saveFileDialog.RestoreDirectory = true;
             saveFileDialog.Title = "创建新资料库";
             DateTime now = DateTime.Now;
             String fileDateString = now.Year + "_" + now.Month + "_" + now.Day + "_" + now.Hour + "_" + now.Minute;
             saveFileDialog.FileName = "MyDB_" + fileDateString + ".db";
-            saveFileDialog.Filter = "sqlite数据库（*.sdf）|*.db";
+            saveFileDialog.Filter = "sqlite数据库（*.db）|*.db";
             saveFileDialog.DefaultExt = "db";
 
             if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                string directory = saveFileDialog.FileName.ToString();
+                SystemConfig.configArgus.DatabaseDefaultPath = directory.Substring(0, directory.LastIndexOf("\\"));
+
+
                 bool IsDBAlreadyOpen = false;
                 foreach (var item in DBtabContainer.Items)
                 {
@@ -1091,8 +1192,8 @@ namespace MyInfoBase
 
 
         }
-      
-       
+
+
 
     }
 

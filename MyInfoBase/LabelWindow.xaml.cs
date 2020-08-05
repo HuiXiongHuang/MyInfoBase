@@ -280,7 +280,7 @@ namespace MyInfoBase
             string labelnodePath = labeltree.SelectedItem.NodeData.DataItem.Path;
             string infoNodePath = InfoNodeDataInfoObj.Path;
             //创建多对多关联时，对信息节点与标签节点在数据库中均存在的，不能直接修改数据库表或实体类，而应该修改关联关系
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 var infoNode= context.InfoNodeDBs.FirstOrDefault(p => p.Path == infoNodePath);
                 var labelNode = context.LabelNodeDBs.FirstOrDefault(p => p.Path == labelnodePath);
@@ -290,9 +290,9 @@ namespace MyInfoBase
               
                 infoNode.LabelNodeDBs.Add(labelNode);
                 labelNode.InfoNodeDBs.Add(infoNode);
-                //context.LabelNodeDBs.Add(labelNode);//不能再添加了否则数据库中会多出一个ID不同的labelNode
-                // context.InfoNodeDBs.Add(infoNode);//不能再添加了否则数据库中会多出一个ID不同的infoNode
-                int r = context.SaveChanges();
+                    //context.LabelNodeDBs.Add(labelNode);//这句话从字面理解就是数据库的LabelNodeDBs表集合中添加一个labelNode，由于ID是自动生成，相当会复制一份与原有的labelNode内容一致，ID不一致的数据。
+                    // context.InfoNodeDBs.Add(infoNode);//不能再添加了否则数据库中会多出一个ID不同的infoNode
+                    int r = context.SaveChanges();
                 //给标签添加信息绑定
                 DBInfoNodeInfo infoNodeInfo = new DBInfoNodeInfo()
                 {

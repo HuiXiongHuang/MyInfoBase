@@ -12,7 +12,7 @@ namespace SystemLibrary
         /// 设置程序退出时选中数据库信息选项卡的内部选项卡的索引，用于大纲视图与标签视图的选择
         /// </summary>
         public int LastTabViewIndex { get; set; }
-
+        
         /// <summary>
         ///  程序退出时本数据库最后访问的节点路径
         /// </summary>

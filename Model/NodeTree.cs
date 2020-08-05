@@ -14,7 +14,7 @@ namespace Model
     
     public partial class NodeTree
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
         public byte[] WholeTree { get; set; }
         public string TreeType { get; set; }
     }

@@ -1,9 +1,0 @@
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\bin\Debug\InterfaceLibrary.dll
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\bin\Debug\InterfaceLibrary.pdb
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\bin\Debug\PublicLibrary.dll
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\bin\Debug\PublicLibrary.pdb
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\obj\Debug\InterfaceLibrary.csprojAssemblyReference.cache
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\obj\Debug\InterfaceLibrary.csproj.CoreCompileInputs.cache
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\obj\Debug\InterfaceLibrary.csproj.CopyComplete
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\obj\Debug\InterfaceLibrary.dll
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\InterfaceLibrary\obj\Debug\InterfaceLibrary.pdb

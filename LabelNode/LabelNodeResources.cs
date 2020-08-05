@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace LabelNode
 {
-    class LabelNodeResources
+     public  class LabelNodeResources
     {
         private static ImageSource _normal = null;
         /// <summary>

@@ -22,7 +22,7 @@ namespace DataAccessLayer
         /// <summary>
         /// sqlite数据库连接字符串格式
         /// </summary>
-        private static String connectStringTemplate = "metadata=res://*/MyDBModelOfSqlite.csdl|res://*/MyDBModelOfSqlite.ssdl|res://*/MyDBModelOfSqlite.msl;provider=System.Data.SQLite.EF6;provider connection string=\"data source={0};\"";
+        private static String connectStringTemplate = "metadata=res://*/MyDBSqliteModel.csdl|res://*/MyDBSqliteModel.ssdl|res://*/MyDBSqliteModel.msl;provider=System.Data.SQLite.EF6;provider connection string=\"data source={0};\"";
 
         public static String getEFConnectionString(String dbFileName)
         {
@@ -90,6 +90,8 @@ namespace DataAccessLayer
         /// 由SQL Server每行限制为8060字节，因此，在此限制Text字段保存的最长字串为3000个字符（之所以是不能更大一些，是因为
         /// Path字段也有长度）
         /// </summary>
-        public const int MaxTextFieldSize = 3000;
+        //public const int MaxTextFieldSize = 3000;
+
+        public const int MaxTextFieldSize = 3000000;
     }
 }

@@ -18,11 +18,12 @@ namespace Model
         public InfoNodeDB()
         {
             this.BookMarks = new HashSet<BookMark>();
-            this.DiskFiles = new HashSet<DiskFile>();
+            this.DiskFileContents = new HashSet<DiskFileContent>();
+            this.DiskFileInfoes = new HashSet<DiskFileInfo>();
             this.LabelNodeDBs = new HashSet<LabelNodeDB>();
         }
     
-        public int ID { get; set; }
+        public long ID { get; set; }
         public string Path { get; set; }
         public string Text { get; set; }
         public byte[] RTFText { get; set; }
@@ -32,7 +33,9 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BookMark> BookMarks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DiskFile> DiskFiles { get; set; }
+        public virtual ICollection<DiskFileContent> DiskFileContents { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DiskFileInfo> DiskFileInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LabelNodeDB> LabelNodeDBs { get; set; }
     }

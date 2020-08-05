@@ -32,7 +32,7 @@ namespace DataAccessLayer.NodeTreeDA
         public String GetTreeFromDB(string treeType)
         {
             String TreeXml = "";
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 NodeTree treeObj = context.NodeTrees.FirstOrDefault(p => p.TreeType == treeType);
                 if (treeObj != null)
@@ -64,7 +64,7 @@ namespace DataAccessLayer.NodeTreeDA
             }
 
 
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 NodeTree treeObj = context.NodeTrees.FirstOrDefault(p=>p.TreeType==treeType);
                 if (treeObj != null)

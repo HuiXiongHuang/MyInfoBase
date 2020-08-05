@@ -20,7 +20,7 @@ namespace Model
             this.InfoNodeDBs = new HashSet<InfoNodeDB>();
         }
     
-        public int ID { get; set; }
+        public long ID { get; set; }
         public string Path { get; set; }
         public Nullable<System.DateTime> ModifyTime { get; set; }
     

@@ -105,7 +105,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SuperTreeHelper.cs" />
     <Compile Include="SuperTreeView.xaml.cs">
       <DependentUpon>SuperTreeView.xaml</DependentUpon>
     </Compile>
@@ -131,9 +130,17 @@
       <Project>{4E68B1C7-2420-49B9-9B34-295A01B715D0}</Project>
       <Name>DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\InfoNode\InfoNode.csproj">
+      <Project>{53EBE073-F03A-4511-ACF2-A28CF23FBA65}</Project>
+      <Name>InfoNode</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InterfaceLibrary\InterfaceLibrary.csproj">
       <Project>{631DCF44-5241-457A-A484-93115C32ED81}</Project>
       <Name>InterfaceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LabelNode\LabelNode.csproj">
+      <Project>{AECEB6F6-2FAC-41C7-BA6A-C69EE9B35B91}</Project>
+      <Name>LabelNode</Name>
     </ProjectReference>
     <ProjectReference Include="..\NodeFactoryLibrary\NodeFactoryLibrary.csproj">
       <Project>{4C27CD8B-D041-4D1A-B470-2FEDE18DBB91}</Project>
@@ -163,6 +170,9 @@
   <ItemGroup>
     <Resource Include="Images\LabelNode.png" />
     <Resource Include="Images\LabelIcon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoInfoIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

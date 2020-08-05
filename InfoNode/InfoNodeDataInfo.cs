@@ -8,14 +8,14 @@ namespace InfoNode
     public class InfoNodeDataInfo : IDataInfo
     {
 
-        private const string NoteText = "压住Control键可以选择多个文件。";
+        private const string NoteText = "压住Control或Shift键可以选择多个文件。";
         public bool HasBeenLoadFromStorage
         {
             get;
             set;
         }
 
-        public int ID
+        public long ID
         {
             get;
             set;
@@ -94,18 +94,25 @@ namespace InfoNode
         }
         public System.Windows.Media.ImageSource NormalIcon
         {
-            get { return InfoNodeResources.normalIcon; }
+            get { return InfoNodeResources.NormalIcon; }
         }
 
         public System.Windows.Media.ImageSource SelectedIcon
         {
             get { return InfoNodeResources.SelectedIcon; }
         }
-        public System.Windows.Media.ImageSource NewIcon
+        public System.Windows.Media.ImageSource FileIcon
         {
             get { return InfoNodeResources.FileIcon; }
         }
-
+        public System.Windows.Media.ImageSource NoInfoIcon
+        {
+            get { return InfoNodeResources.NoInfoIcon; }
+        }
+        public System.Windows.Media.ImageSource ImageIcon
+        {
+            get { return InfoNodeResources.ImageIcon; }
+        }
         public System.Windows.Controls.Control RootControl
         {
             get { return InfoNodeResources.RootControl; }

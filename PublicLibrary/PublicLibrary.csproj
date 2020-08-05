@@ -93,8 +93,13 @@
     <Compile Include="Network\JsonUtils.cs" />
     <Compile Include="Network\NetworkUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AsymmetricEncryption\RSAHelper.cs" />
     <Compile Include="Security\SecurityUtils.cs" />
+    <Compile Include="Security\SymmetricEncryption\DESHeper.cs" />
+    <Compile Include="Security\SymmetricEncryption\SymmetryEncrypt.cs" />
+    <Compile Include="Security\SymmetricEncryption\TripleDESHelper.cs" />
     <Compile Include="Serializer\DeepSerializer.cs" />
+    <Compile Include="Utils\FileOpenUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\IconExtractor.cs" />
     <Compile Include="Utils\ImageUtils.cs" />

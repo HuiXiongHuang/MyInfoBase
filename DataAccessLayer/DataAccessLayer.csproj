@@ -76,6 +76,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -87,38 +88,41 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
     <Compile Include="DALConfig.cs" />
+    <Compile Include="InfoNodeDA\ClearSqliteFreeList.cs" />
     <Compile Include="InfoNodeDA\DBFileInfo.cs" />
     <Compile Include="InfoNodeDA\InfoNodeRepository.cs" />
     <Compile Include="InfoNodeDA\DBLabelInfo.cs" />
     <Compile Include="LabelNodeDA\DBInfoNodeInfo.cs" />
     <Compile Include="LabelNodeDA\LabelNodeRepository.cs" />
-    <Compile Include="MyDBModelOfSqliteContainer.cs" />
-    <Compile Include="MyDBModelOfSqlite.Context.cs">
+    <Compile Include="MyDBSqliteModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyDBModelOfSqlite.Context.tt</DependentUpon>
+      <DependentUpon>MyDBSqliteModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="MyDBModelOfSqlite.Designer.cs">
+    <Compile Include="MyDBSqliteModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MyDBModelOfSqlite.edmx</DependentUpon>
+      <DependentUpon>MyDBSqliteModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="MyDBEntitiesSqlite.cs" />
     <Compile Include="NodeDataSearchRepository.cs" />
     <Compile Include="NodeMoveBetweenDBManager.cs" />
     <Compile Include="NodeTreeDA\NodeTreeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="MyDBModelOfSqlite.edmx">
+    <None Include="App.Config" />
+    <EntityDeploy Include="MyDBSqliteModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MyDBModelOfSqlite.Designer.cs</LastGenOutput>
+      <LastGenOutput>MyDBSqliteModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="MyDBModelOfSqlite.edmx.diagram">
-      <DependentUpon>MyDBModelOfSqlite.edmx</DependentUpon>
+    <None Include="MyDBSqliteModel.edmx.diagram">
+      <DependentUpon>MyDBSqliteModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -133,20 +137,14 @@
       <Project>{2d6730fd-75da-473a-841b-c5d6ac173c24}</Project>
       <Name>Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MyDBModelOfSqlite.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>MyDBModelOfSqlite.Context.cs</LastGenOutput>
-      <DependentUpon>MyDBModelOfSqlite.edmx</DependentUpon>
-    </Content>
+    <ProjectReference Include="..\PublicLibrary\PublicLibrary.csproj">
+      <Project>{6A7D7307-FF8C-4C62-A41C-5AA7589697C2}</Project>
+      <Name>PublicLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EntityFramework">
       <Version>6.4.0</Version>
-    </PackageReference>
-    <PackageReference Include="EntityFramework.zh-Hans">
-      <Version>6.2.0</Version>
     </PackageReference>
     <PackageReference Include="System.Data.SQLite">
       <Version>1.0.112</Version>
@@ -160,6 +158,13 @@
     <PackageReference Include="System.Data.SQLite.Linq">
       <Version>1.0.112</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MyDBSqliteModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyDBSqliteModel.edmx</DependentUpon>
+      <LastGenOutput>MyDBSqliteModel.Context.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

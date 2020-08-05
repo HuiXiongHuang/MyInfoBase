@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InfoNode;
+using PublicLibrary.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +37,9 @@ namespace WPFDBInfoTab
         public SuperTreeView SuperTree { get { return tree; } }
         private void OnTreeViewSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            TreeViewIconsItem newSelectedNode = e.NewValue as TreeViewIconsItem;
+          
+            
+             TreeViewIconsItem newSelectedNode = e.NewValue as TreeViewIconsItem;
             if (SuperTree.IsInEditMode)
             {
                 if (newSelectedNode != null)
@@ -44,6 +48,7 @@ namespace WPFDBInfoTab
                 }
                 return;
             }
+            
 
             //更换节点图标
             DBInfoTabObj.ChangedSelectedNodeIconWhenClick(sender, e);

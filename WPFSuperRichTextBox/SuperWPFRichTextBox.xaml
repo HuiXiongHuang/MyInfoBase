@@ -46,7 +46,9 @@
         <RichTextBox Name="RichTextBox1"
               VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
               Grid.Row="0" MinHeight="100" FontSize="12" 
+             
               VerticalScrollBarVisibility="Auto"   
+              HorizontalScrollBarVisibility="Auto"     
               AcceptsReturn="True" AcceptsTab="True" 
               Background="PapayaWhip" 
                

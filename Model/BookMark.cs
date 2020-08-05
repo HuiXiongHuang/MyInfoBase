@@ -14,9 +14,9 @@ namespace Model
     
     public partial class BookMark
     {
-        public int ID { get; set; }
+        public long ID { get; set; }
         public string BookMarkContent { get; set; }
-        public Nullable<int> InfoNodeID { get; set; }
+        public Nullable<long> InfoNodeID { get; set; }
     
         public virtual InfoNodeDB InfoNodeDB { get; set; }
     }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using EntityState = System.Data.Entity.EntityState;
 
@@ -14,7 +15,7 @@ namespace DataAccessLayer.InfoNodeDA
     /// <summary>
     /// 完成信息节点的增删改查功能
     /// </summary>
-    public class InfoNodeRepository : BaseRepository<MyDBModelOfSqliteContainer>
+    public class InfoNodeRepository : BaseRepository<MyDBEntitiesSqlite>
     {
         private String EFConnectionString = "";
 
@@ -25,12 +26,12 @@ namespace DataAccessLayer.InfoNodeDA
 
         //}
         public InfoNodeRepository()
-            : base(new MyDBModelOfSqliteContainer(""))
+            : base(new MyDBEntitiesSqlite(""))
         {
 
         }
         public InfoNodeRepository(string efConnectionString)
-            : base(new MyDBModelOfSqliteContainer(efConnectionString))
+            : base(new MyDBEntitiesSqlite(efConnectionString))
         {
             EFConnectionString = efConnectionString;
             //_dbContext = new MyDBEntities(EFConnectionString);
@@ -98,6 +99,47 @@ namespace DataAccessLayer.InfoNodeDA
             return 0;
 
         }
+        public int UpdateFile(DiskFileContent diskFileContent)
+        {
+
+            if (diskFileContent == null)
+            {
+                return 0;
+            }
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            {
+               
+                DiskFileContent file = context.DiskFileContents.FirstOrDefault(f => f.ID == diskFileContent.ID);
+                if (file != null)
+                {
+                    file.FileKey = diskFileContent.FileKey;
+                    file.SavedFile = diskFileContent.SavedFile;
+                    return context.SaveChanges();
+                }
+            }
+            return 0;            
+        }
+        public int UpdateFileInfo(DiskFileInfo diskFileInfo)
+        {
+
+            if (diskFileInfo == null)
+            {
+                return 0;
+            }
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            {
+
+                DiskFileInfo fileInfo = context.DiskFileInfoes.FirstOrDefault(f => f.ID == diskFileInfo.ID);
+                if (fileInfo != null)
+                {
+                    fileInfo.IsEncrypted = diskFileInfo.IsEncrypted;
+                    return context.SaveChanges();
+                }
+            }
+            return 0;
+
+
+        }
         #endregion
         #region "提取信息"
 
@@ -106,11 +148,11 @@ namespace DataAccessLayer.InfoNodeDA
         /// 尽量少用，这将导致占用大量内存
         /// </summary>
         /// <returns></returns>
-        public List<InfoNodeDB> GetAllInfoNodeDBWithItsDiskFile()
+        public List<InfoNodeDB> GetAllInfoNodeDBWithItsDiskFileInfo()
         {
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
-                var query = from item in context.InfoNodeDBs.Include("DiskFiles")
+                var query = from item in context.InfoNodeDBs.Include("DiskFileInfoes")
                             select item;
                 return query.ToList();
             }
@@ -122,9 +164,9 @@ namespace DataAccessLayer.InfoNodeDA
         ///
         /// </summary>
         /// <returns></returns>
-        public List<InfoNodeDB> GetAllInfoNodeDBWithoutItsDiskFile()
+        public List<InfoNodeDB> GetAllInfoNodeDBWithoutItsDiskFileInfo()
         {
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             select item;
@@ -145,9 +187,9 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return null;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
-                return context.InfoNodeDBs.Include("DiskFiles").FirstOrDefault(p => p.Path == path);
+                return context.InfoNodeDBs.Include("DiskFileInfoes").FirstOrDefault(p => p.Path == path);
             }
         }
         /// <summary>
@@ -162,7 +204,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return null;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 return context.InfoNodeDBs.FirstOrDefault(p => p.Path == path);
             }
@@ -197,7 +239,7 @@ namespace DataAccessLayer.InfoNodeDA
                 return null;
             }
             ObservableCollection<DBFileInfo> fileInfos = new ObservableCollection<DBFileInfo>();
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             where item.Path == path
@@ -205,14 +247,17 @@ namespace DataAccessLayer.InfoNodeDA
                 InfoNodeDB InfoNodeObj = query.FirstOrDefault();
                 if (InfoNodeObj != null)
                 {
-                    foreach (var file in InfoNodeObj.DiskFiles)
+                    foreach (var file in InfoNodeObj.DiskFileInfoes)
                     {
                         fileInfos.Add(new DBFileInfo()
                         {
                             AddTime = file.AddTime.Value,
                             FilePath = file.FilePath,
                             FileSize = file.FileSize.Value,
-                            ID = file.ID
+                            FileHash=file.FileHash,
+                            FileContentID=(long)file.FileContentID,
+                            ID = file.ID,
+                            IsEncrypted=(bool)file.IsEncrypted
                         });
 
                     }
@@ -234,7 +279,7 @@ namespace DataAccessLayer.InfoNodeDA
                 return null;
             }
             ObservableCollection<DBLabelInfo> labelInfos = new ObservableCollection<DBLabelInfo>();
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             where item.Path == path
@@ -270,37 +315,87 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return null;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 return context.InfoNodeDBs.Include("LabelNodeDBs").FirstOrDefault(p => p.Path == path);
             }
         }
+
+
         #endregion
 
         #region "添加文件"
-
+    
         /// <summary>
-        /// 将一个文件加入到节点的文件集合中
+        /// 判断所添加的文件是否在数据库中已经存在,存在则返回FileContentID
+        /// </summary>
+        /// <param name="dBFileInfo"></param>
+        /// <returns></returns>
+        public bool IsFileExsit(DBFileInfo dBFileInfo)
+        {
+            List<DiskFileInfo> fileinfolist = new List<DiskFileInfo>();
+            //using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            //{
+                var query = from item in _dbContext.DiskFileInfoes
+                            where item.FileHash == dBFileInfo.FileHash
+                            select item;
+                 fileinfolist = query.ToList();
+            //}
+            if (fileinfolist.Count > 0)
+            {
+                dBFileInfo.FileContentID = (long)fileinfolist[0].FileContentID;
+
+                return true;
+            }
+            return false;
+        }
+
+        public void AddFileToDB(String InfoNodePath, DiskFileContent diskFile)
+        {
+            if (string.IsNullOrEmpty(InfoNodePath) || diskFile == null)
+            {
+                return ;
+            }
+           // InfoNodeDB infoNode = _dbContext.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
+            //long infonodeID = infoNode.ID;
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            {
+                //DiskFileContent diskFileContent=new DiskFileContent();
+                InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
+
+                diskFile.InfoNodeDB = InfoNodeObj;
+                 diskFile.InfoNodeID = InfoNodeObj.ID;
+
+                //context.DiskFileContents.Add(diskFile);
+                InfoNodeObj.DiskFileContents.Add(diskFile);
+                context.SaveChanges();
+
+
+            }
+         //   infoNode.DiskFileContents.Add(diskFile);
+        }
+        /// <summary>
+        /// 将一个文件信息加入到节点的文件集合中，不包括文件内容
         /// </summary>
         /// <param name="InfoNodePath"></param>
-        /// <param name="file"></param>
-        public int AddFileOfInfoNodeDB(String InfoNodePath, DiskFile file)
+        /// <param name="fileInfo"></param>
+        public void AddFileInfoOfInfoNodeDB(String InfoNodePath, DiskFileInfo fileInfo)
         {
-            if (string.IsNullOrEmpty(InfoNodePath) || file == null)
+            if (string.IsNullOrEmpty(InfoNodePath) || fileInfo == null)
             {
-                return 0;
+                return ;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
-            {
-                InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
+            //using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            //{
+                InfoNodeDB InfoNodeObj = _dbContext.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
                 {
-                    return 0;
+                    return ;
                 }
-                InfoNodeObj.DiskFiles.Add(file);
-                return context.SaveChanges();
+                InfoNodeObj.DiskFileInfoes.Add(fileInfo);
+              //  return _dbContext.SaveChanges();
               
-            }
+            //}
 
         }
         /// <summary>
@@ -308,23 +403,23 @@ namespace DataAccessLayer.InfoNodeDA
         /// 如果文件夹节点找不到，或者files为空集合，什么也不干，返回
         /// </summary>
         /// <param name="InfoNodeDBPath"></param>
-        /// <param name="files"></param>
-        public void AddFilesOfInfoNode(String InfoNodePath, List<DiskFile> files)
+        /// <param name="fileInfos"></param>
+        public void AddFileInfosOfInfoNode(String InfoNodePath, List<DiskFileInfo> fileInfos)
         {
-            if (string.IsNullOrEmpty(InfoNodePath) || files == null || files.Count == 0)
+            if (string.IsNullOrEmpty(InfoNodePath) || fileInfos == null || fileInfos.Count == 0)
             {
                 return;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
                 {
                     return;
                 }
-                foreach (var file in files)
+                foreach (var file in fileInfos)
                 {
-                    InfoNodeObj.DiskFiles.Add(file);
+                    InfoNodeObj.DiskFileInfoes.Add(file);
                 }
                 context.SaveChanges();
             }
@@ -343,7 +438,7 @@ namespace DataAccessLayer.InfoNodeDA
             {
                 return 0;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -357,9 +452,47 @@ namespace DataAccessLayer.InfoNodeDA
             }
 
         }
-       
+
         #endregion
         #region "删除操作"
+        /// <summary>
+        /// 当待删除的数据库中文件对应的文件信息仅剩一个时，需删除此文件，此时返回一个true
+        /// </summary>
+        /// <param name="dBFileInfo"></param>
+        /// <returns></returns>
+        public List<long> GetDBFileToBeRemove(List<DBFileInfo> dBFileInfos)
+        {
+            List<long> fileInfoIDs = new List<long>();
+            foreach (var item in dBFileInfos )
+            {
+                fileInfoIDs.Add(item.ID);
+            }
+            List<long> fileIds = new List<long>();
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            {
+                foreach (var info in dBFileInfos)
+                {
+                    if (info.FileHash != null)
+                    {
+                    
+                    var query = from item in context.DiskFileInfoes
+                                where item.FileHash == info.FileHash
+                                select item.ID;
+                 var list= query.ToList();
+                        bool isSubset = list.All(t => fileInfoIDs.Any(b => b == t));
+                    if (list.Count == 1|| isSubset)
+                    {
+                        fileIds.Add(info.FileContentID);
+                    }
+
+                    }
+                }
+              
+              
+            }
+
+            return fileIds;
+        }
 
         /// <summary>
         /// 按照路径删除InfoNode记录，如果它还有子记录，一并删除,同时删除关联的文件，但不删除关联的标签（至于与标签的关联，因为一端已经消失，关联线自然无意义了）
@@ -367,7 +500,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// <param name="path"></param>
         public int DeleteInfoNodeDBAndItsChildByPath(String path)
         {
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
              
                 var query = from item in context.InfoNodeDBs
@@ -376,21 +509,21 @@ namespace DataAccessLayer.InfoNodeDA
                 foreach (var InfoNodeObj in query)
                 {
 
-                    List<DiskFile> files = InfoNodeObj.DiskFiles.ToList();
+                    List<DiskFileInfo> fileinfos = InfoNodeObj.DiskFileInfoes.ToList();
 
-                    foreach (var file in files)
+                    foreach (var fileinfo in fileinfos)
                     {
-                        context.Entry(file).State = EntityState.Deleted;
+                        context.Entry(fileinfo).State = EntityState.Deleted;
+
+                        var q = from i in context.DiskFileInfoes where i.FileHash == fileinfo.FileHash select i;
+                        var list = q.ToList();
+                       if(list.Count()==1|| list.All(t => fileinfos.Any(b => b == t)))
+                        {
+                           var file= context.DiskFileContents.FirstOrDefault(i=>i.ID==fileinfo.FileContentID);
+                            context.DiskFileContents.Remove(file); 
+                        }
                     }
 
-                 
-
-                    //List<LabelNodeDB> labelNodes = InfoNodeObj.LabelNodeDBs.ToList();
-
-                    //foreach (var labelNode in labelNodes)
-                    //{
-                    //    context.Entry(labelNode).State = EntityState.Deleted;
-                    //}
 
                     context.InfoNodeDBs.Remove(InfoNodeObj);
                 }
@@ -407,14 +540,14 @@ namespace DataAccessLayer.InfoNodeDA
         /// <returns></returns>
         public int DeleteInfoNodeDB(String path)
         {
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 var query = from item in context.InfoNodeDBs
                             where item.Path == path
                             select item;
                 foreach (var InfoNodeObj in query)
                 {
-                    List<DiskFile> files = InfoNodeObj.DiskFiles.ToList();
+                    List<DiskFileInfo> files = InfoNodeObj.DiskFileInfoes.ToList();
 
                     foreach (var file in files)
                     {
@@ -439,7 +572,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// </summary>
         public void DeleteAllInfoNodeRecords()
         {
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 List<InfoNodeDB> InfoNodeObjs = context.InfoNodeDBs.ToList();
                 foreach (var InfoNodeObj in InfoNodeObjs)
@@ -450,31 +583,61 @@ namespace DataAccessLayer.InfoNodeDA
             }
 
         }
+  
         /// <summary>
-        /// 删除某个节点中的指定文件
+        /// 删除指定的文件
+        /// </summary>
+        /// <param name="fileIDs"></param>
+        public void DeleteFiles( List<long> fileIDs)
+        {
+            if ( fileIDs == null || fileIDs.Count == 0)
+            {
+                return;
+            }
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            {
+                foreach (var item in fileIDs)
+                {
+                    DiskFileContent file = context.DiskFileContents.FirstOrDefault(i => i.ID == item);
+                    if(file!=null)
+                    context.DiskFileContents.Remove(file);
+                    //确保删除
+                    // context.Entry(file).State = EntityState.Deleted;
+
+                   
+                }
+                context.SaveChanges();
+            
+               
+            }
+        
+
+        }
+        /// <summary>
+        /// 删除某个节点中的指定文件信息
         /// </summary>
         /// <param name="InfoNodePath"></param>
-        /// <param name="fileID"></param>
-        public void DeleteFileOfInfoNodedDB(String InfoNodePath, int fileID)
+        /// <param name="fileinfoID"></param>
+        public void DeleteFileInfoOfInfoNodedDB(String InfoNodePath,long fileinfoID)
         {
-            List<int> fileIds = new List<int>();
-            fileIds.Add(fileID);
-            DeleteFilesOfInfoNodeDB(InfoNodePath, fileIds);
+            List<long> fileinfoIds = new List<long>();
+            fileinfoIds.Add(fileinfoID);
+            DeleteFileInfosOfInfoNodeDB(InfoNodePath, fileinfoIds);
 
         }
 
         /// <summary>
-        /// 从节点所关联的文件集合中删除指定的文件
+        /// 从节点所关联的文件集合中删除指定的文件信息
         /// </summary>
         /// <param name="InfoNodePath"></param>
         /// <param name="fileIDs"></param>
-        public void DeleteFilesOfInfoNodeDB(String InfoNodePath, List<int> fileIDs)
+        public void DeleteFileInfosOfInfoNodeDB(String InfoNodePath, List<long> fileIDs)
         {
             if (string.IsNullOrEmpty(InfoNodePath) || fileIDs == null || fileIDs.Count == 0)
             {
                 return;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -482,13 +645,13 @@ namespace DataAccessLayer.InfoNodeDA
                     return;
                 }
 
-                foreach (var file in InfoNodeObj.DiskFiles.ToList())
+                foreach (var file in InfoNodeObj.DiskFileInfoes.ToList())
                 {
                     if (fileIDs.IndexOf(file.ID) != -1)
                     {
                         //保证删除FileAndInfoNode记录
-                        InfoNodeObj.DiskFiles.Remove(file);
-                        //确保DiskFile删除
+                        InfoNodeObj.DiskFileInfoes.Remove(file);
+                        //确保DiskFileInfo删除
                         context.Entry(file).State = EntityState.Deleted;
                     }
 
@@ -502,9 +665,9 @@ namespace DataAccessLayer.InfoNodeDA
         /// </summary>
         /// <param name="InfoNodePath"></param>
         /// <param name="labelID"></param>
-        public void DeleteLabelOfInfoNodeDB(String InfoNodePath, int labelID)
+        public void DeleteLabelOfInfoNodeDB(String InfoNodePath, long labelID)
         {
-            List<int> labelIds = new List<int>();
+            List<long> labelIds = new List<long>();
             labelIds.Add(labelID);
             DeleteLabelsOfInfoNodeDB(InfoNodePath, labelIds);
 
@@ -514,13 +677,13 @@ namespace DataAccessLayer.InfoNodeDA
         /// </summary>
         /// <param name="InfoNodePath"></param>
         /// <param name="labelIDs"></param>
-        public void DeleteLabelsOfInfoNodeDB(String InfoNodePath, List<int> labelIDs)
+        public void DeleteLabelsOfInfoNodeDB(String InfoNodePath, List<long> labelIDs)
         {
             if (string.IsNullOrEmpty(InfoNodePath) || labelIDs == null || labelIDs.Count == 0)
             {
                 return;
             }
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 InfoNodeDB InfoNodeObj = context.InfoNodeDBs.FirstOrDefault(p => p.Path == InfoNodePath);
                 if (InfoNodeObj == null)
@@ -548,9 +711,9 @@ namespace DataAccessLayer.InfoNodeDA
         /// </summary>
         /// <param name="InfoNodePath"></param>
         /// <param name="labelID"></param>
-        public void DeleteLabelOfInfoNodeDBContinuousExecution(String InfoNodePath, int labelID)
+        public void DeleteLabelOfInfoNodeDBContinuousExecution(String InfoNodePath, long labelID)
         {
-            List<int> labelIds = new List<int>();
+            List<long> labelIds = new List<long>();
             labelIds.Add(labelID);
             DeleteLabelsOfInfoNodeDBContinuousExecution(InfoNodePath, labelIds);
 
@@ -560,7 +723,7 @@ namespace DataAccessLayer.InfoNodeDA
         /// </summary>
         /// <param name="InfoNodePath"></param>
         /// <param name="labelIDs"></param>
-        public void DeleteLabelsOfInfoNodeDBContinuousExecution(String InfoNodePath, List<int> labelIDs)
+        public void DeleteLabelsOfInfoNodeDBContinuousExecution(String InfoNodePath, List<long> labelIDs)
         {
             if (string.IsNullOrEmpty(InfoNodePath) || labelIDs == null || labelIDs.Count == 0)
             {
@@ -588,22 +751,41 @@ namespace DataAccessLayer.InfoNodeDA
             
 
         }
-        
+
         #endregion
         /// <summary>
-        /// 按照文件ID从数据库中提取文件内容
+        /// 按照文件ID从数据库中提取文件的密钥（索引为0）和内容(索引为1)
         /// 找不到返回null
         /// </summary>
         /// <param name="fileID"></param>
         /// <returns></returns>
-        public byte[] getFileContent(int fileID)
+        public List<byte[]> getFileContentAndItsKey(long fileID)
         {
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            List<byte[]> fileAndKey = new List<byte[]>();
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
-                DiskFile file = context.DiskFiles.FirstOrDefault(f => f.ID == fileID);
-                if (file != null)
+                DiskFileInfo fileinfo = context.DiskFileInfoes.FirstOrDefault(f => f.ID == fileID);
+                DiskFileContent fileContent = context.DiskFileContents.FirstOrDefault(f => f.ID == fileinfo.FileContentID);
+                if (fileinfo != null)
                 {
-                    return file.FileContent;
+                    fileAndKey.Add(fileContent.FileKey);
+                    fileAndKey.Add(fileContent.SavedFile);
+                    return fileAndKey;            
+                }
+            }
+            return null;
+        }
+        public byte[]getFileContent(long fileID)
+        {
+          
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
+            {
+                DiskFileInfo fileinfo = context.DiskFileInfoes.FirstOrDefault(f => f.ID == fileID);
+                DiskFileContent fileContent = context.DiskFileContents.FirstOrDefault(f => f.ID == fileinfo.FileContentID);
+                if (fileinfo != null)
+                {
+                    
+                    return fileContent.SavedFile;
                 }
             }
             return null;
@@ -614,9 +796,9 @@ namespace DataAccessLayer.InfoNodeDA
         /// </summary>
         /// <param name="labelID"></param>
         /// <returns></returns>
-        public LabelNodeDB getLabelNodeDB(int labelID)
+        public LabelNodeDB getLabelNodeDB(long labelID)
         {
-            using (MyDBModelOfSqliteContainer context = new MyDBModelOfSqliteContainer(EFConnectionString))
+            using (MyDBEntitiesSqlite context = new MyDBEntitiesSqlite(EFConnectionString))
             {
                 LabelNodeDB label = context.LabelNodeDBs.FirstOrDefault(f => f.ID == labelID);
                 if (label != null)

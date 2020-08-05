@@ -23,14 +23,14 @@ namespace DataAccessLayer
         ///// </summary>
         //private String _TargetDBFileWithPath = "";
 
-        private MyDBModelOfSqliteContainer SourceDbContext = null;
-        private MyDBModelOfSqliteContainer TargetDbContext = null;
+        private MyDBEntitiesSqlite SourceDbContext = null;
+        private MyDBEntitiesSqlite TargetDbContext = null;
         public NodeMoveBetweenDBManager(String SourceDBFileWithPath, String TargetDBFileWithPath)
         {
             //_SourceDBFileWithPath = SourceDBFileWithPath;
-            SourceDbContext = new MyDBModelOfSqliteContainer(DALConfig.getEFConnectionString(SourceDBFileWithPath));
+            SourceDbContext = new MyDBEntitiesSqlite(DALConfig.getEFConnectionString(SourceDBFileWithPath));
             //_TargetDBFileWithPath = TargetDBFileWithPath;
-            TargetDbContext = new MyDBModelOfSqliteContainer(DALConfig.getEFConnectionString(TargetDBFileWithPath));
+            TargetDbContext = new MyDBEntitiesSqlite(DALConfig.getEFConnectionString(TargetDBFileWithPath));
         }
         /// <summary>
         /// 将源数据库中的数据记录移到另一个数据库
@@ -85,7 +85,7 @@ namespace DataAccessLayer
             foreach (var InfoNode in query)
             {
 
-                List<DiskFile> files = InfoNode.DiskFiles.ToList();
+                List<DiskFileInfo> files = InfoNode.DiskFileInfoes.ToList();
 
                 foreach (var file in files)
                 {

@@ -12,7 +12,7 @@ namespace DataAccessLayer.InfoNodeDA
     {
         public event PropertyChangedEventHandler PropertyChanged;
      
-            public int ID { get; set; }
+            public long ID { get; set; }
 
         private String _path = "";
         public String Path

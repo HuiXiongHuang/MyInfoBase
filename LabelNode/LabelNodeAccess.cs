@@ -116,7 +116,7 @@ namespace LabelNode
         }
 
 
-        public void DeleteFilesOfInfoNodeDB(String InfoNodeDBPath, List<int> fileIDs)
+        public void DeleteFilesOfInfoNodeDB(String InfoNodeDBPath, List<long> fileIDs)
         {
             repository.DeleteInfoNodesOfLabelNodeDB(InfoNodeDBPath, fileIDs);
         }

@@ -38,6 +38,21 @@ namespace WPFSuperTreeView
                     
         }
         /// <summary>
+        /// 设置树中新增节点的默认图标
+        /// </summary>
+        public  string DefaultIconTypeOfNewNode
+        {
+            get
+            {
+                if (TreeNodeType == "InfoNode")
+                    return "NoInfoIcon";
+                else if (TreeNodeType == "LabelNode")
+                    return "LabelNode";
+                    return "NoInfoIcon";
+            }
+            
+        }
+        /// <summary>
         /// 用于在数据库中更新相关路径
         /// </summary>
         private NodePathManager _nodePathManager = null;
@@ -82,6 +97,7 @@ namespace WPFSuperTreeView
                 _treeNodeType = value;
             }
         }
+      
         
         /// <summary>
         /// 用于存取数据库
@@ -239,7 +255,7 @@ namespace WPFSuperTreeView
             }
             ShouldRaiseSelectedItemChangedEvent = true;
 
-            TreeViewIconsItem treeNode = new TreeViewIconsItem(this, nodeDataObject,this.TreeNodeType);
+            TreeViewIconsItem treeNode = new TreeViewIconsItem(this, nodeDataObject,this.DefaultIconTypeOfNewNode);
             treeNode.HeaderText = nodeText;
           //  treeNode.Icon = nodeDataObject.DataItem.NormalIcon;
             //自动展开
@@ -985,8 +1001,8 @@ namespace WPFSuperTreeView
         {
             XElement element = new XElement("TreeNode");
             element.SetAttributeValue("Title", node.HeaderText);
-            element.SetAttributeValue("NodeType", node.NodeData.DataItem.NodeType);
-            element.SetAttributeValue("IconType", node.NodeData.DataItem.IconType);
+            element.SetAttributeValue("NodeType", node.NodeType);
+            element.SetAttributeValue("IconType", node.IconType);
             element.SetAttributeValue("FontWeight", node.FontWeight);
             if (node.Foreground != Brushes.White)
             {

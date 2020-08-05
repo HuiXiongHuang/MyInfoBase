@@ -9,14 +9,14 @@ namespace LabelNode
     public class LabelNodeDataInfo : IDataInfo
     {
 
-        private const string NoteText = "文件夹型节点，压住Control键可以选择多个文件。";
+        private const string NoteText = "双击信息条目，可加载信息节点控件进行编辑";
         public bool HasBeenLoadFromStorage
         {
             get;
             set;
         }
 
-        public int ID
+        public long ID
         {
             get;
             set;
@@ -90,7 +90,7 @@ namespace LabelNode
         {
             get { return LabelNodeResources.selectedIcon; }
         }
-        public System.Windows.Media.ImageSource NewIcon
+        public System.Windows.Media.ImageSource FileIcon
         {
             get { return LabelNodeResources.FileIcon; }
         }

@@ -14,6 +14,7 @@ namespace InterfaceLibrary
         /// </summary>
         /// <param name="info"></param>
         void ShowInfo(String info);
+      
         TextBox GetFontSizeTextBox();
         RichTextBox GetRichTextBox();
         

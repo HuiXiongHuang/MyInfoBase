@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace InfoNode
 {
@@ -16,10 +19,12 @@ namespace InfoNode
         //{
         //    repository = new InfoNodeRepository(DALConfig.EFConnectString);
         //}
+        private string EFConString = "";
 
         public InfoNodeAccess(String EFConnectionString)
         {
             repository = new InfoNodeRepository(EFConnectionString);
+            EFConString = EFConnectionString;
         }
         /// <summary>
         /// 新建一个InfoNode记录，不包容任何文件
@@ -35,7 +40,7 @@ namespace InfoNode
             InfoNodeDB dbobj = InfoNodeHelper.changeToInfoNodeDB(dataInfoObject as InfoNodeDataInfo);
             int result = repository.AddInfoNodeDB(dbobj);
             //将数据库生成的ID值传回
-            dataInfoObject.ID = dbobj.ID;
+            dataInfoObject.ID = (int)dbobj.ID;
             return 0;
         }
 
@@ -118,14 +123,33 @@ namespace InfoNode
         /// <summary>
         /// 添加文件
         /// </summary>
-        /// <param name="fileInfo"></param>
+        /// <param name="dbfileInfo"></param>
         /// <param name="fileContent"></param>
-        public void AddFile(string nodePath, DBFileInfo fileInfo, byte[] fileContent)
+        public string AddFile(string nodePath, DBFileInfo dbfileInfo, byte[] fileContent)
         {
-            DiskFile file = DBFileInfo.toDiskFile(fileInfo, fileContent);
-            repository.AddFileOfInfoNodeDB(nodePath, file);
+            InfoNodeRepository tempRepository = new InfoNodeRepository(EFConString);
+            bool isFileExsit = tempRepository.IsFileExsit(dbfileInfo);
+            if (!isFileExsit)
+            {
+                //添加文件
+                DiskFileContent diskFile = new DiskFileContent();
+                diskFile.SavedFile = fileContent;
+               
+                 tempRepository.AddFileToDB(nodePath,diskFile);
+                dbfileInfo.FileContentID = diskFile.ID;
+
+            }
+
+            //添加文件信息
+            DiskFileInfo fileinfo = DBFileInfo.toDiskFileInfo(dbfileInfo);
+            tempRepository.AddFileInfoOfInfoNodeDB(nodePath, fileinfo);
+            tempRepository.SaveChanges();
             //将ID传回
-            fileInfo.ID = file.ID;
+            dbfileInfo.ID = fileinfo.ID;
+
+
+            return "1";
+
         }
         /// <summary>
         /// 添加标签关联关系
@@ -134,39 +158,65 @@ namespace InfoNode
         /// <param name="labeldb"></param>
         public void AddLabelAssociation(string nodePath, DBLabelInfo labelInfo, LabelNodeDB labeldb)
         {
-           
+
             repository.AddLabelOfInfoNodeDB(nodePath, labeldb);
             //将ID传回,注意此ID与原labeldb是不一样的，所以添加关联实际会在数据库中新增一个内容一样但ID不一样的对象。
             labelInfo.ID = labeldb.ID;
         }
-
-        public void DeleteFilesOfInfoNodeDB(String InfoNodeDBPath, List<int> fileIDs)
+        public List<long> GetDBFileToBeRemove(List<DBFileInfo> dBFileInfos)
         {
-            repository.DeleteFilesOfInfoNodeDB(InfoNodeDBPath, fileIDs);
+            return repository.GetDBFileToBeRemove(dBFileInfos);
+        }
+        public void DeleteFilesOfInfoNodeDB(String InfoNodeDBPath, List<long> fileIDs)
+        {
+            repository.DeleteFileInfosOfInfoNodeDB(InfoNodeDBPath, fileIDs);
+        }
+        public void DeleteFiles(List<long> fileIDs)
+        {
+            repository.DeleteFiles(fileIDs);
         }
         public void DeleteLabelOfInfoNodeDB(String InfoNodeDBPath, int labelID)
         {
             repository.DeleteLabelOfInfoNodeDB(InfoNodeDBPath, labelID);
         }
-        public void DeleteLabelsOfInfoNodeDB(String InfoNodeDBPath, List<int> labelIDs)
+        public void DeleteLabelsOfInfoNodeDB(String InfoNodeDBPath, List<long> labelIDs)
         {
             repository.DeleteLabelsOfInfoNodeDB(InfoNodeDBPath, labelIDs);
+        }
+        /// <summary>
+        /// 按照fileID从数据库中提取文件及其密钥的二进制数据
+        /// </summary>
+        /// <param name="fileID"></param>
+        /// <returns></returns>
+        public List<byte[]> getFileContentAndItsKey(long fileID)
+        {
+            return repository.getFileContentAndItsKey(fileID);
         }
         /// <summary>
         /// 按照fileID从数据库中提取文件的二进制数据
         /// </summary>
         /// <param name="fileID"></param>
         /// <returns></returns>
-        public byte[] getFileContent(int fileID)
+        public byte[] getFileContent(long fileID)
         {
             return repository.getFileContent(fileID);
+        }
+        public int UpdateFile(DiskFileContent diskFileContent)
+        {
+                return repository.UpdateFile(diskFileContent);
+
+        }
+        public int UpdateFileInfo(DiskFileInfo diskFileInfo)
+        {
+            return repository.UpdateFileInfo(diskFileInfo);
+
         }
         /// <summary>
         /// 按ID获取数据库中的标签
         /// </summary>
         /// <param name="labelID"></param>
         /// <returns></returns>
-        public List<LabelNodeDB> getLabelNodeDBs(List< int> labelID )
+        public List<LabelNodeDB> getLabelNodeDBs(List<long> labelID)
         {
             List<LabelNodeDB> labelNodes = new List<LabelNodeDB>();
             foreach (var id in labelID)

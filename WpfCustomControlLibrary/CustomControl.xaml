@@ -622,23 +622,43 @@
     <!--#region 2-->
     <!--MenuItem-->
     <Style  x:Key="menuItem2"  TargetType="MenuItem">
+        <!--<Setter Property="Background" Value="#1BA1E2"></Setter>-->
         <Setter Property="Background" Value="#1BA1E2"></Setter>
+        <Setter Property="Foreground" Value="Black"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="MenuItem">
                     <Grid ToolTip="{TemplateBinding Header}" Height="30"  Width="{TemplateBinding Width}">
+                        <Grid.BitmapEffect>
+                            <!--边框为0的外发光效果-->
+                            <OuterGlowBitmapEffect Opacity="0.7" GlowSize="0" GlowColor="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" />
+                        </Grid.BitmapEffect>
                         <Grid.Background>
-                            <!--使用LinearGradientBrush渐变画刷：定义一个渐变画刷，然后需要定义渐变颜色，颜色已直线形式渐变-->
+                            <!--使用LinearGradientBrush渐变画刷：定义一个渐变画刷，然后需要定义渐变颜色，颜色已直线形式渐变--><!--
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1.5">
                                 <GradientBrush.GradientStops>
                                     <GradientStopCollection>
-                                        <!--GradientStop:定义渐变颜色与颜色渐变始点-->
+                                        --><!--GradientStop:定义渐变颜色与颜色渐变始点--><!--
                                         <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent},  Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0"/>
                                         <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0.4"/>
                                         <GradientStop Color="#FFF" Offset="1"/>
                                     </GradientStopCollection>
                                 </GradientBrush.GradientStops>
-                            </LinearGradientBrush>
+                            </LinearGradientBrush>-->
+                            <!--fore 实现按钮的边框和高亮反光效果，半透明的黑色1像素边框，使边框的色彩可以和背景色混合起来-->
+                            <!--背景同样采用的渐变笔刷，起始值和终止值的位置几乎贴在一起，从而形成比较鲜明的反光度对比。-->
+                            
+                           
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1.5">
+                                    <GradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0"/>
+                                            <GradientStop Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Button.Background).(SolidColorBrush.Color)}" Offset="0.4"/>
+                                            <GradientStop Color="#FFF" Offset="1"/>
+                                        </GradientStopCollection>
+                                    </GradientBrush.GradientStops>
+                                </LinearGradientBrush>
+             
                         </Grid.Background>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0" />
@@ -647,20 +667,30 @@
                         <!--<Border Background="Transparent"/>-->
                         <!--<Border x:Name="_border"   Grid.ColumnSpan="2"/>-->
                         <!--<Image x:Name="_imgicon" Width="12" Height="12" Stretch="Uniform" Source="{Binding Icon,RelativeSource={RelativeSource TemplatedParent}}" />-->
-                        <TextBlock Foreground="White" Grid.Column="1" Margin="5 0 15 0"  VerticalAlignment="Center" x:Name="_txt" Text="{Binding Header,RelativeSource={RelativeSource TemplatedParent}}" />
+                        <TextBlock Foreground="Honeydew" Grid.Column="1" Margin="5 0 15 0"  VerticalAlignment="Center" x:Name="_txt" Text="{Binding Header,RelativeSource={RelativeSource TemplatedParent}}" />
                         <!--<Path  Visibility="Collapsed" x:Name="_path" Grid.Column="1" HorizontalAlignment="Right"  Margin="5 13 5 0"   Data="M0,4 4,0 0,-4 z" Fill="#7E8A92"/>-->
                         <Popup  Placement="Bottom" x:Name="SubMenuPopup" AllowsTransparency="True"   Focusable="False" IsOpen="{TemplateBinding IsSubmenuOpen}" >
                             <ScrollViewer   ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <Border  Name="SubmenuBorder" BorderBrush="Transparent" BorderThickness="0"  SnapsToDevicePixels="True"    >
+                                    <!--fore 实现按钮的边框和高亮反光效果，半透明的黑色1像素边框，使边框的色彩可以和背景色混合起来-->
+                                    <!--背景同样采用的渐变笔刷，起始值和终止值的位置几乎贴在一起，从而形成比较鲜明的反光度对比。-->
                                     <Border.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <!--<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                             <GradientBrush.GradientStops>
                                                 <GradientStopCollection>
                                                     <GradientStop Color="#6FFF" Offset="0.5"/>
                                                     <GradientStop Color="#1111" Offset="0.51"/>
                                                 </GradientStopCollection>
                                             </GradientBrush.GradientStops>
-                                        </LinearGradientBrush>
+                                        </LinearGradientBrush>-->
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="#6FFF" Offset="0.5"/>
+                                            <GradientStop Color="#1111" Offset="0.51"/>
+                                        </GradientStopCollection>
+                                    </GradientBrush.GradientStops>
+                                </LinearGradientBrush>
                                     </Border.Background>
                                     <StackPanel   IsItemsHost="True"   KeyboardNavigation.DirectionalNavigation="Cycle" />
                                 </Border>
@@ -674,7 +704,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
                             <!--<Setter TargetName="_border" Property="Background" Value="#ffc787"/>-->
-                            <Setter TargetName="_txt" Property="Foreground" Value="White"/>
+                            <Setter TargetName="_txt" Property="Foreground" Value="black"/>
                             <!--<Setter TargetName="_path" Property="Fill" Value="White"/>-->
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
@@ -709,7 +739,7 @@
     </Style>
     <!--#endregion-->
     <!--#endregion-->
-<!--#region 右键菜单样式 -->
+    <!--#region 右键菜单样式 -->
 
     <!--自定义ContextMenu的外观样式-->
     <Style TargetType="{x:Type ContextMenu}">

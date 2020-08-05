@@ -1,8 +1,0 @@
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\bin\Debug\WPFCustomCommands.dll
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\bin\Debug\WPFCustomCommands.pdb
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\obj\Debug\WPFCustomCommands.csprojAssemblyReference.cache
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\obj\Debug\WPFCustomCommands.Properties.Resources.resources
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\obj\Debug\WPFCustomCommands.csproj.GenerateResource.cache
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\obj\Debug\WPFCustomCommands.csproj.CoreCompileInputs.cache
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\obj\Debug\WPFCustomCommands.dll
-C:\Users\HHX\Desktop\MyInfoBaseV1.0.3.0\MyInfoBase\WPFCustomCommands\obj\Debug\WPFCustomCommands.pdb

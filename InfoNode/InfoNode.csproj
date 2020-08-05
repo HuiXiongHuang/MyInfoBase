@@ -157,5 +157,20 @@
   <ItemGroup>
     <Resource Include="Images\InfoNode.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\NoInfoIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ImageIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EventManagement\ShowInfoEvent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\jiesuo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\suo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

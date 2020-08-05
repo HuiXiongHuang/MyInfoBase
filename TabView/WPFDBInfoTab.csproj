@@ -158,6 +158,10 @@
       <Project>{4c27cd8b-d041-4d1a-b470-2fede18dbb91}</Project>
       <Name>NodeFactoryLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PublicLibrary\PublicLibrary.csproj">
+      <Project>{6A7D7307-FF8C-4C62-A41C-5AA7589697C2}</Project>
+      <Name>PublicLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SystemLibrary\SystemLibrary.csproj">
       <Project>{D953BBC5-50AD-481B-9979-8C7B9653751C}</Project>
       <Name>SystemLibrary</Name>

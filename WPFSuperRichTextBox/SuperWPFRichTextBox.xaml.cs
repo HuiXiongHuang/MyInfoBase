@@ -242,7 +242,8 @@ namespace WPFSuperRichTextBox
             WinForms.DialogResult ret = OpenFileDialog1.ShowDialog();
             if (ret == WinForms.DialogResult.OK)
             {
-                rtfManager.LoadOrInsertFile(true, OpenFileDialog1.FileName);
+                
+              rtfManager.LoadOrInsertFile(true, OpenFileDialog1.FileName);
 
             }
         }
@@ -285,6 +286,7 @@ namespace WPFSuperRichTextBox
         /// <param name="e"></param>
         private void OnInsertImage(object sender, ExecutedRoutedEventArgs e)
         {
+
             rtfManager.InsertImageToRichTextBox();
         }
 

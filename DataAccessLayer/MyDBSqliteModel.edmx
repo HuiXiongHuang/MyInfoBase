@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SqliteModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=C:\Users\HHX\Documents\IT\项目与架构\项目\MyInfoBase\版本1.0.3.0\MyInfoBaseV1.0.3.1\MyInfoBase\MyInfoBase\bin\Debug\MyDB.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BookMark">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BookMarkContent" Type="nchar" MaxLength="100" />
+          <Property Name="InfoNodeID" Type="integer" />
+        </EntityType>
+        <EntityType Name="DiskFileContent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SavedFile" Type="blob" />
+          <Property Name="InfoNodeID" Type="integer" />
+          <Property Name="FileKey" Type="blob" />
+        </EntityType>
+        <EntityType Name="DiskFileInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileSize" Type="integer" />
+          <Property Name="AddTime" Type="datetime" />
+          <Property Name="FileNote" Type="nvarchar" MaxLength="4000" />
+          <Property Name="AfterCompressionFileSize" Type="integer" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="4000" />
+          <Property Name="FileHash" Type="blob" />
+          <Property Name="FileContentID" Type="integer" />
+          <Property Name="IsEncrypted" Type="bit" />
+        </EntityType>
+        <EntityType Name="FileAndInfoNode">
+          <Key>
+            <PropertyRef Name="FileID" />
+            <PropertyRef Name="InfoNodeID" />
+          </Key>
+          <Property Name="FileID" Type="integer" Nullable="false" />
+          <Property Name="InfoNodeID" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InfoNodeAndLabel">
+          <Key>
+            <PropertyRef Name="LabelNodeID" />
+            <PropertyRef Name="InfoNodeID" />
+          </Key>
+          <Property Name="LabelNodeID" Type="integer" Nullable="false" />
+          <Property Name="InfoNodeID" Type="integer" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InfoNodeDB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Text" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="RTFText" Type="blob" />
+          <Property Name="ModifyTime" Type="datetime" />
+          <Property Name="Type" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="LabelNodeDB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ModifyTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NodeTree">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WholeTree" Type="blob" />
+          <Property Name="TreeType" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_BookMark_0_0">
+          <End Role="InfoNodeDB" Type="Self.InfoNodeDB" Multiplicity="0..1" />
+          <End Role="BookMark" Type="Self.BookMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoNodeDB">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookMark">
+              <PropertyRef Name="InfoNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiskFileContent_0_0">
+          <End Role="InfoNodeDB" Type="Self.InfoNodeDB" Multiplicity="0..1" />
+          <End Role="DiskFileContent" Type="Self.DiskFileContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoNodeDB">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DiskFileContent">
+              <PropertyRef Name="InfoNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileAndInfoNode_0_0">
+          <End Role="InfoNodeDB" Type="Self.InfoNodeDB" Multiplicity="1" />
+          <End Role="FileAndInfoNode" Type="Self.FileAndInfoNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoNodeDB">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FileAndInfoNode">
+              <PropertyRef Name="InfoNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FileAndInfoNode_1_0">
+          <End Role="DiskFileInfo" Type="Self.DiskFileInfo" Multiplicity="1" />
+          <End Role="FileAndInfoNode" Type="Self.FileAndInfoNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DiskFileInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FileAndInfoNode">
+              <PropertyRef Name="FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InfoNodeAndLabel_0_0">
+          <End Role="LabelNodeDB" Type="Self.LabelNodeDB" Multiplicity="1" />
+          <End Role="InfoNodeAndLabel" Type="Self.InfoNodeAndLabel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LabelNodeDB">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InfoNodeAndLabel">
+              <PropertyRef Name="LabelNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InfoNodeAndLabel_1_0">
+          <End Role="InfoNodeDB" Type="Self.InfoNodeDB" Multiplicity="1" />
+          <End Role="InfoNodeAndLabel" Type="Self.InfoNodeAndLabel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoNodeDB">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="InfoNodeAndLabel">
+              <PropertyRef Name="InfoNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SqliteModelStoreContainer">
+          <EntitySet Name="BookMark" EntityType="Self.BookMark" store:Type="Tables" />
+          <EntitySet Name="DiskFileContent" EntityType="Self.DiskFileContent" store:Type="Tables" />
+          <EntitySet Name="DiskFileInfo" EntityType="Self.DiskFileInfo" store:Type="Tables" />
+          <EntitySet Name="FileAndInfoNode" EntityType="Self.FileAndInfoNode" store:Type="Tables" />
+          <EntitySet Name="InfoNodeAndLabel" EntityType="Self.InfoNodeAndLabel" store:Type="Tables" />
+          <EntitySet Name="InfoNodeDB" EntityType="Self.InfoNodeDB" store:Type="Tables" />
+          <EntitySet Name="LabelNodeDB" EntityType="Self.LabelNodeDB" store:Type="Tables" />
+          <EntitySet Name="NodeTree" EntityType="Self.NodeTree" store:Type="Tables" />
+          <AssociationSet Name="FK_BookMark_0_0" Association="Self.FK_BookMark_0_0">
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDB" />
+            <End Role="BookMark" EntitySet="BookMark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiskFileContent_0_0" Association="Self.FK_DiskFileContent_0_0">
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDB" />
+            <End Role="DiskFileContent" EntitySet="DiskFileContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileAndInfoNode_0_0" Association="Self.FK_FileAndInfoNode_0_0">
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDB" />
+            <End Role="FileAndInfoNode" EntitySet="FileAndInfoNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FileAndInfoNode_1_0" Association="Self.FK_FileAndInfoNode_1_0">
+            <End Role="DiskFileInfo" EntitySet="DiskFileInfo" />
+            <End Role="FileAndInfoNode" EntitySet="FileAndInfoNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoNodeAndLabel_0_0" Association="Self.FK_InfoNodeAndLabel_0_0">
+            <End Role="LabelNodeDB" EntitySet="LabelNodeDB" />
+            <End Role="InfoNodeAndLabel" EntitySet="InfoNodeAndLabel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InfoNodeAndLabel_1_0" Association="Self.FK_InfoNodeAndLabel_1_0">
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDB" />
+            <End Role="InfoNodeAndLabel" EntitySet="InfoNodeAndLabel" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SqliteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDBEntitiesSqlite" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookMarks" EntityType="SqliteModel.BookMark" />
+          <EntitySet Name="DiskFileContents" EntityType="SqliteModel.DiskFileContent" />
+          <EntitySet Name="DiskFileInfoes" EntityType="SqliteModel.DiskFileInfo" />
+          <EntitySet Name="InfoNodeDBs" EntityType="SqliteModel.InfoNodeDB" />
+          <EntitySet Name="LabelNodeDBs" EntityType="SqliteModel.LabelNodeDB" />
+          <EntitySet Name="NodeTrees" EntityType="SqliteModel.NodeTree" />
+          <AssociationSet Name="FK_BookMark_0_0" Association="SqliteModel.FK_BookMark_0_0">
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDBs" />
+            <End Role="BookMark" EntitySet="BookMarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DiskFileContent_0_0" Association="SqliteModel.FK_DiskFileContent_0_0">
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDBs" />
+            <End Role="DiskFileContent" EntitySet="DiskFileContents" />
+          </AssociationSet>
+          <AssociationSet Name="FileAndInfoNode" Association="SqliteModel.FileAndInfoNode">
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDBs" />
+            <End Role="DiskFileInfo" EntitySet="DiskFileInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="InfoNodeAndLabel" Association="SqliteModel.InfoNodeAndLabel">
+            <End Role="LabelNodeDB" EntitySet="LabelNodeDBs" />
+            <End Role="InfoNodeDB" EntitySet="InfoNodeDBs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BookMark">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BookMarkContent" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="InfoNodeID" Type="Int64" />
+          <NavigationProperty Name="InfoNodeDB" Relationship="SqliteModel.FK_BookMark_0_0" FromRole="BookMark" ToRole="InfoNodeDB" />
+        </EntityType>
+        <EntityType Name="DiskFileContent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SavedFile" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="InfoNodeID" Type="Int64" />
+          <Property Name="FileKey" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="InfoNodeDB" Relationship="SqliteModel.FK_DiskFileContent_0_0" FromRole="DiskFileContent" ToRole="InfoNodeDB" />
+        </EntityType>
+        <EntityType Name="DiskFileInfo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileSize" Type="Int64" />
+          <Property Name="AddTime" Type="DateTime" />
+          <Property Name="FileNote" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="AfterCompressionFileSize" Type="Int64" />
+          <Property Name="FilePath" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FileHash" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="FileContentID" Type="Int64" />
+          <Property Name="IsEncrypted" Type="Boolean" />
+          <NavigationProperty Name="InfoNodeDBs" Relationship="SqliteModel.FileAndInfoNode" FromRole="DiskFileInfo" ToRole="InfoNodeDB" />
+        </EntityType>
+        <EntityType Name="InfoNodeDB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="RTFText" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="ModifyTime" Type="DateTime" />
+          <Property Name="Type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="BookMarks" Relationship="SqliteModel.FK_BookMark_0_0" FromRole="InfoNodeDB" ToRole="BookMark" />
+          <NavigationProperty Name="DiskFileContents" Relationship="SqliteModel.FK_DiskFileContent_0_0" FromRole="InfoNodeDB" ToRole="DiskFileContent" />
+          <NavigationProperty Name="DiskFileInfoes" Relationship="SqliteModel.FileAndInfoNode" FromRole="InfoNodeDB" ToRole="DiskFileInfo" />
+          <NavigationProperty Name="LabelNodeDBs" Relationship="SqliteModel.InfoNodeAndLabel" FromRole="InfoNodeDB" ToRole="LabelNodeDB" />
+        </EntityType>
+        <EntityType Name="LabelNodeDB">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ModifyTime" Type="DateTime" />
+          <NavigationProperty Name="InfoNodeDBs" Relationship="SqliteModel.InfoNodeAndLabel" FromRole="LabelNodeDB" ToRole="InfoNodeDB" />
+        </EntityType>
+        <EntityType Name="NodeTree">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WholeTree" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="TreeType" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_BookMark_0_0">
+          <End Type="SqliteModel.InfoNodeDB" Role="InfoNodeDB" Multiplicity="0..1" />
+          <End Type="SqliteModel.BookMark" Role="BookMark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoNodeDB">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookMark">
+              <PropertyRef Name="InfoNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DiskFileContent_0_0">
+          <End Type="SqliteModel.InfoNodeDB" Role="InfoNodeDB" Multiplicity="0..1" />
+          <End Type="SqliteModel.DiskFileContent" Role="DiskFileContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoNodeDB">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DiskFileContent">
+              <PropertyRef Name="InfoNodeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FileAndInfoNode">
+          <End Type="SqliteModel.InfoNodeDB" Role="InfoNodeDB" Multiplicity="*" />
+          <End Type="SqliteModel.DiskFileInfo" Role="DiskFileInfo" Multiplicity="*" />
+        </Association>
+        <Association Name="InfoNodeAndLabel">
+          <End Type="SqliteModel.LabelNodeDB" Role="LabelNodeDB" Multiplicity="*" />
+          <End Type="SqliteModel.InfoNodeDB" Role="InfoNodeDB" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SqliteModelStoreContainer" CdmEntityContainer="MyDBEntitiesSqlite">
+          <EntitySetMapping Name="BookMarks">
+            <EntityTypeMapping TypeName="SqliteModel.BookMark">
+              <MappingFragment StoreEntitySet="BookMark">
+                <ScalarProperty Name="InfoNodeID" ColumnName="InfoNodeID" />
+                <ScalarProperty Name="BookMarkContent" ColumnName="BookMarkContent" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiskFileContents">
+            <EntityTypeMapping TypeName="SqliteModel.DiskFileContent">
+              <MappingFragment StoreEntitySet="DiskFileContent">
+                <ScalarProperty Name="FileKey" ColumnName="FileKey" />
+                <ScalarProperty Name="InfoNodeID" ColumnName="InfoNodeID" />
+                <ScalarProperty Name="SavedFile" ColumnName="SavedFile" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiskFileInfoes">
+            <EntityTypeMapping TypeName="SqliteModel.DiskFileInfo">
+              <MappingFragment StoreEntitySet="DiskFileInfo">
+                <ScalarProperty Name="IsEncrypted" ColumnName="IsEncrypted" />
+                <ScalarProperty Name="FileContentID" ColumnName="FileContentID" />
+                <ScalarProperty Name="FileHash" ColumnName="FileHash" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="AfterCompressionFileSize" ColumnName="AfterCompressionFileSize" />
+                <ScalarProperty Name="FileNote" ColumnName="FileNote" />
+                <ScalarProperty Name="AddTime" ColumnName="AddTime" />
+                <ScalarProperty Name="FileSize" ColumnName="FileSize" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoNodeDBs">
+            <EntityTypeMapping TypeName="SqliteModel.InfoNodeDB">
+              <MappingFragment StoreEntitySet="InfoNodeDB">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="RTFText" ColumnName="RTFText" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LabelNodeDBs">
+            <EntityTypeMapping TypeName="SqliteModel.LabelNodeDB">
+              <MappingFragment StoreEntitySet="LabelNodeDB">
+                <ScalarProperty Name="ModifyTime" ColumnName="ModifyTime" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NodeTrees">
+            <EntityTypeMapping TypeName="SqliteModel.NodeTree">
+              <MappingFragment StoreEntitySet="NodeTree">
+                <ScalarProperty Name="TreeType" ColumnName="TreeType" />
+                <ScalarProperty Name="WholeTree" ColumnName="WholeTree" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FileAndInfoNode" TypeName="SqliteModel.FileAndInfoNode" StoreEntitySet="FileAndInfoNode">
+            <EndProperty Name="DiskFileInfo">
+              <ScalarProperty Name="ID" ColumnName="FileID" />
+            </EndProperty>
+            <EndProperty Name="InfoNodeDB">
+              <ScalarProperty Name="ID" ColumnName="InfoNodeID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="InfoNodeAndLabel" TypeName="SqliteModel.InfoNodeAndLabel" StoreEntitySet="InfoNodeAndLabel">
+            <EndProperty Name="InfoNodeDB">
+              <ScalarProperty Name="ID" ColumnName="InfoNodeID" />
+            </EndProperty>
+            <EndProperty Name="LabelNodeDB">
+              <ScalarProperty Name="ID" ColumnName="LabelNodeID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -12,7 +12,7 @@ namespace InterfaceLibrary
         /// 本节点数据信息是否己经从底层存储机构中提取
         /// </summary>
         bool HasBeenLoadFromStorage { get; set; }
-        int ID { get; set; }
+        long ID { get; set; }
         String Path { get; set; }
         /// <summary>
         /// 创建或修改的时间
@@ -40,7 +40,7 @@ namespace InterfaceLibrary
         /// <summary>
         /// 新图标
         /// </summary>
-        ImageSource NewIcon { get; }
+        ImageSource FileIcon { get; }
         /// <summary>
         /// 本节点UI界面的最顶层控件，通常为ContentControl或ItemsControl
         /// </summary>
